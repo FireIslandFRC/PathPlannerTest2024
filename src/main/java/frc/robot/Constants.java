@@ -39,13 +39,13 @@ public final class Constants {
     // ORDER IS ALWAYS FL, BL, FR, BR 
     public static final SwerveDriveKinematics DRIVE_KINEMATICS = new SwerveDriveKinematics(
       // front left
-      new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2),
+      new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2),
       // back left
       new Translation2d(-WHEEL_BASE / 2, TRACK_WIDTH / 2),
       // front right
       new Translation2d(WHEEL_BASE / 2, -TRACK_WIDTH / 2),
       // back right
-      new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2)
+      new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2)
     );
 
     /* * * FRONT LEFT * * */
@@ -54,7 +54,7 @@ public final class Constants {
       public static final int DRIVE_PORT = 1;
       public static final int ROTATION_PORT = 5;
       public static final int ABSOLUTE_ENCODER_PORT = 9;
-      public static final double OFFSET = Math.toDegrees(0); 
+      public static final double OFFSET = 0 + 180; //80.06; 
       public static final boolean DRIVE_INVERTED = false; 
       public static final boolean ROTATION_INVERTED = true; 
 
@@ -67,7 +67,7 @@ public final class Constants {
       public static final int DRIVE_PORT = 2;
       public static final int ROTATION_PORT = 6;
       public static final int ABSOLUTE_ENCODER_PORT = 10;
-      public static final double OFFSET = Math.toDegrees(0); 
+      public static final double OFFSET = 0 + 180; //-94.30; 
       public static final boolean DRIVE_INVERTED = true; 
       public static final boolean ROTATION_INVERTED = true; 
 
@@ -80,7 +80,7 @@ public final class Constants {
       public static final int DRIVE_PORT = 3;
       public static final int ROTATION_PORT = 7;
       public static final int ABSOLUTE_ENCODER_PORT = 11;
-      public static final double OFFSET = Math.toDegrees(0);
+      public static final double OFFSET = 67; //-26.98;
       public static final boolean DRIVE_INVERTED = false; 
       public static final boolean ROTATION_INVERTED = true; 
 
@@ -93,7 +93,7 @@ public final class Constants {
       public static final int DRIVE_PORT = 4;
       public static final int ROTATION_PORT = 8;
       public static final int ABSOLUTE_ENCODER_PORT = 12;
-      public static final double OFFSET = Math.toDegrees(0);
+      public static final double OFFSET = 67 + 180; //-27.42;
       public static final boolean DRIVE_INVERTED = true; 
       public static final boolean ROTATION_INVERTED = true; 
 

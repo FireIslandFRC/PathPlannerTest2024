@@ -26,10 +26,10 @@ public class SwerveSubsystem extends SubsystemBase {
   public SwerveSubsystem() {
 
     swerveModules = new SwerveModule[] {
-      new SwerveModule(0, SwerveConstants.FrontLeft.constants), 
-      new SwerveModule(1, SwerveConstants.BackLeft.constants), 
-      new SwerveModule(2, SwerveConstants.FrontRight.constants), 
-      new SwerveModule(3, SwerveConstants.BackRight.constants)
+      new SwerveModule(0, SwerveConstants.FrontRight.constants), 
+      new SwerveModule(1, SwerveConstants.BackRight.constants), 
+      new SwerveModule(2, SwerveConstants.FrontLeft.constants), 
+      new SwerveModule(3, SwerveConstants.BackLeft.constants)
     };
 
     //instantiate navx 
@@ -76,6 +76,7 @@ public class SwerveSubsystem extends SubsystemBase {
   //gets a SwerveModuleStates array from driver control and sets each module to the corresponding SwerveModuleState
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, SwerveConstants.MAX_SPEED);
+
     for (SwerveModule swerveMod : swerveModules) {
       swerveMod.setState(desiredStates[swerveMod.moduleID]);
     }
@@ -149,8 +150,9 @@ public class SwerveSubsystem extends SubsystemBase {
     for (SwerveModule swerveMod : swerveModules) {
       swerveMod.print();
     }
+
     SmartDashboard.putNumber("NAVX", navx.getYaw());
-    SmartDashboard.putString("WORKING DIR", System.getProperty("user.dir"));
+    // SmartDashboard.putString("WORKING DIR", System.getProperty("user.dir"));
     
   }
 }

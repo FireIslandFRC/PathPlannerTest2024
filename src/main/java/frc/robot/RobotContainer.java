@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.commands.S_DriveCommand;
 
 public class RobotContainer {
   //SUBSYSTEMS 
@@ -21,6 +22,7 @@ public class RobotContainer {
   JoystickButton quickTurnButton = new JoystickButton(xbox, XboxController.Button.kX.value); 
 
   public RobotContainer() {
+    swerveSubs.setDefaultCommand(new S_DriveCommand(swerveSubs, () -> -xbox.getLeftX(), () -> xbox.getLeftY(), () -> -xbox.getRightX(), false));
     // Configure the trigger bindings
     configureBindings();
   }
