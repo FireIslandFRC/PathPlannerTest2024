@@ -1,15 +1,21 @@
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
+
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SwerveModuleConstants;
 import frc.robot.Constants.SwerveConstants;
+import frc.robot.Constants.SwerveConstants.AutonomousConstants;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -22,6 +28,8 @@ public class SwerveSubsystem extends SubsystemBase {
   //odometer 
   private SwerveDriveOdometry odometer; 
   private AHRS navx; 
+
+  // private BooleanSupplier shouldFlipPath = () -> false;
 
   public SwerveSubsystem() {
 
@@ -42,6 +50,16 @@ public class SwerveSubsystem extends SubsystemBase {
       navx.getRotation2d(), 
       getModulePositions()
     );
+
+    AutoBuilder.configureHolonomic(
+      this::getPose, 
+      this::resetOdometry, 
+      this::getRobotRelativeSpeeds, 
+      this::driveRobotRelative, 
+      AutonomousConstants.HOLONOMIC_PATH_FOLLOWER_CONFIG, 
+      () -> false, 
+      this //reference to this subsystem to set requirements 
+      );
 
   }
 
@@ -68,6 +86,16 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public void resetOdometry(Pose2d pose) {
     odometer.resetPosition(getRotation2d(), getModulePositions(), pose);
+  }
+
+  public ChassisSpeeds getRobotRelativeSpeeds() {
+    return new ChassisSpeeds(SwerveConstants.DRIVE_KINEMATICS.toChassisSpeeds(getModuleStates()).vxMetersPerSecond, SwerveConstants.DRIVE_KINEMATICS.toChassisSpeeds(getModuleStates()).vyMetersPerSecond, SwerveConstants.DRIVE_KINEMATICS.toChassisSpeeds(getModuleStates()).omegaRadiansPerSecond);
+  }
+
+  public void driveRobotRelative(ChassisSpeeds chassis) {
+    SwerveModuleState[] state = SwerveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(chassis);
+
+    setModuleStates(state);
   }
 
   /* * * STATES * * */
