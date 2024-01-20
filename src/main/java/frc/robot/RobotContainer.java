@@ -1,6 +1,8 @@
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -42,6 +44,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("Dylan Auto");
+    return new PathPlannerAuto("New Auto");
+    // PathPlannerPath path = PathPlannerPath.fromPathFile("Example Path");
+
+    // return AutoBuilder.followPath(path);
   }
+
 }

@@ -26,6 +26,7 @@ public final class Constants {
   }
 
   public static class SwerveConstants {
+    //SDS L2 
     public static final boolean ROTATION_ENCODER_DIRECTION = false; 
 
     /* * * MEASUREMENTS * * */
@@ -116,7 +117,7 @@ public final class Constants {
     public static final double KD_TURNING = 0.0001;
 
     /* * * MAX * * */
-    public static final double MAX_SPEED = 3.6576;
+    public static final double MAX_SPEED = 3.6576; //12.0 ft/s 
     public static final double MAX_ROTATION = MAX_SPEED / Math.hypot(TRACK_WIDTH / 2.0, WHEEL_BASE / 2.0);
 
     public static class AutonomousConstants {
