@@ -42,15 +42,31 @@ public final class Constants {
 
     /* * * SWERVE DRIVE KINEMATICS * * */
     // ORDER IS ALWAYS FL, BL, FR, BR 
+    //pos x is out in front, pos y is to the left 
     public static final SwerveDriveKinematics DRIVE_KINEMATICS = new SwerveDriveKinematics(
+      
       // front left
-      new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2),
+      new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2),
       // back left
       new Translation2d(-WHEEL_BASE / 2, TRACK_WIDTH / 2),
       // front right
       new Translation2d(WHEEL_BASE / 2, -TRACK_WIDTH / 2),
       // back right
-      new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2)
+      new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2)
+      
+
+      /* //front left 
+      new Translation2d(WHEEL_BASE / 2, -TRACK_WIDTH / 2), 
+
+      //back left 
+      new Translation2d(WHEEL_BASE / 2, TRACK_WIDTH / 2),
+
+      //front right 
+      new Translation2d(-WHEEL_BASE / 2, -TRACK_WIDTH / 2), 
+
+      //back right 
+      new Translation2d(-WHEEL_BASE / 2, TRACK_WIDTH / 2) */
+
     );
 
     /* * * FRONT LEFT * * */
@@ -59,7 +75,7 @@ public final class Constants {
       public static final int DRIVE_PORT = 1;
       public static final int ROTATION_PORT = 5;
       public static final int ABSOLUTE_ENCODER_PORT = 9;
-      public static final double OFFSET = 0 + 180; //80.06; 
+      public static final double OFFSET = 80.95;
       public static final boolean DRIVE_INVERTED = false; 
       public static final boolean ROTATION_INVERTED = true; 
 
@@ -72,8 +88,8 @@ public final class Constants {
       public static final int DRIVE_PORT = 2;
       public static final int ROTATION_PORT = 6;
       public static final int ABSOLUTE_ENCODER_PORT = 10;
-      public static final double OFFSET = 0 + 180; //-94.30; 
-      public static final boolean DRIVE_INVERTED = true; 
+      public static final double OFFSET = -101.60 + 6;
+      public static final boolean DRIVE_INVERTED = false; 
       public static final boolean ROTATION_INVERTED = true; 
 
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_PORT, ROTATION_PORT, ABSOLUTE_ENCODER_PORT, OFFSET, DRIVE_INVERTED, ROTATION_INVERTED);
@@ -85,7 +101,7 @@ public final class Constants {
       public static final int DRIVE_PORT = 3;
       public static final int ROTATION_PORT = 7;
       public static final int ABSOLUTE_ENCODER_PORT = 11;
-      public static final double OFFSET = 67; //-26.98;
+      public static final double OFFSET = -28.92 + 6;
       public static final boolean DRIVE_INVERTED = false; 
       public static final boolean ROTATION_INVERTED = true; 
 
@@ -98,8 +114,8 @@ public final class Constants {
       public static final int DRIVE_PORT = 4;
       public static final int ROTATION_PORT = 8;
       public static final int ABSOLUTE_ENCODER_PORT = 12;
-      public static final double OFFSET = 67 + 180; //-27.42;
-      public static final boolean DRIVE_INVERTED = true; 
+      public static final double OFFSET = -25.31 - 2;
+      public static final boolean DRIVE_INVERTED = false; 
       public static final boolean ROTATION_INVERTED = true; 
 
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_PORT, ROTATION_PORT, ABSOLUTE_ENCODER_PORT, OFFSET, DRIVE_INVERTED, ROTATION_INVERTED);
@@ -124,8 +140,8 @@ public final class Constants {
       public static final HolonomicPathFollowerConfig HOLONOMIC_PATH_FOLLOWER_CONFIG = new HolonomicPathFollowerConfig(
         new PIDConstants(0.0, 0.0, 0.0), //FIXME translation PID constants 
         new PIDConstants(0.0, 0.0, 0.0), //FIXME rotation PID constants 
-        4.5, //FIXME max module speed in m/s 
-        0.4, //FIXME drive base radius in meters. dist from robot center to furthest module 
+        3.81, //FIXME max module speed in m/s 
+        (Math.hypot(WHEEL_BASE, TRACK_WIDTH)) / 2, //FIXME drive base radius in meters. dist from robot center to furthest module 
         new ReplanningConfig() //default path replanning config 
         );
     }

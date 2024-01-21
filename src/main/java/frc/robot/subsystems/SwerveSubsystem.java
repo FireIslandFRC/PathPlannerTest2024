@@ -34,10 +34,10 @@ public class SwerveSubsystem extends SubsystemBase {
   public SwerveSubsystem() {
 
     swerveModules = new SwerveModule[] {
-      new SwerveModule(0, SwerveConstants.FrontRight.constants), 
-      new SwerveModule(1, SwerveConstants.BackRight.constants), 
-      new SwerveModule(2, SwerveConstants.FrontLeft.constants), 
-      new SwerveModule(3, SwerveConstants.BackLeft.constants)
+      new SwerveModule(0, SwerveConstants.FrontLeft.constants), 
+      new SwerveModule(1, SwerveConstants.BackLeft.constants), 
+      new SwerveModule(2, SwerveConstants.FrontRight.constants), 
+      new SwerveModule(3, SwerveConstants.BackRight.constants)
     };
 
     //instantiate navx 
