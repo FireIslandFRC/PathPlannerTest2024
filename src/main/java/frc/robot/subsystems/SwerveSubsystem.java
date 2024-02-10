@@ -181,6 +181,7 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     SmartDashboard.putNumber("NAVX", navx.getYaw());
+    SmartDashboard.putString("POSE INFO", odometer.getPoseMeters().toString());
     // SmartDashboard.putString("WORKING DIR", System.getProperty("user.dir"));
     
   }

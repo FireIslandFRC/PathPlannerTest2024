@@ -123,7 +123,7 @@ public final class Constants {
     
     /* * * CONVERSIONS FOR ENCODERS * * */
     //velocity in meters per sec instead of RPM 
-    public static final double DRIVE_ENCODER_POSITION_CONVERSION = DRIVE_GEAR_RATIO * Math.PI * WHEEL_DIAMETER; //drive enc rotation
+    public static final double DRIVE_ENCODER_POSITION_CONVERSION = ((2 * Math.PI * (WHEEL_DIAMETER/2))) / DRIVE_GEAR_RATIO; //drive enc rotation
     //velocity in meters instead of rotations 
     public static final double DRIVE_ENCODER_VELOCITY_CONVERSION = DRIVE_ENCODER_POSITION_CONVERSION / 60; //drive enc speed 
  
@@ -139,8 +139,8 @@ public final class Constants {
     public static class AutonomousConstants {
       public static final HolonomicPathFollowerConfig HOLONOMIC_PATH_FOLLOWER_CONFIG = new HolonomicPathFollowerConfig(
         new PIDConstants(0.0, 0.0, 0.0), //FIXME translation PID constants 
-        new PIDConstants(0.0, 0.0, 0.0), //FIXME rotation PID constants 
-        3.81, //FIXME max module speed in m/s 
+        new PIDConstants(0.0004, 0.0, 0.0), //FIXME rotation PID constants 
+        1.5, //FIXME max module speed in m/s 
         (Math.hypot(WHEEL_BASE, TRACK_WIDTH)) / 2, //FIXME drive base radius in meters. dist from robot center to furthest module 
         new ReplanningConfig() //default path replanning config 
         );

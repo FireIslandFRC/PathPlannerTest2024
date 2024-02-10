@@ -4,6 +4,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,9 +25,8 @@ public class RobotContainer {
 
   //DRIVE BUTTONS 
   private final JoystickButton resetNavxButton = new JoystickButton(xbox, XboxController.Button.kA.value); 
+  private final JoystickButton resetPosButton = new JoystickButton(xbox, XboxController.Button.kB.value);
   private final JoystickButton quickTurnButton = new JoystickButton(xbox, XboxController.Button.kX.value); 
-
-  private final JoystickButton fullSpeedButton = new JoystickButton(xbox, XboxController.Button.kY.value); 
 
   //AXIS 
   private final int joystickAxis = XboxController.Axis.kRightY.value;
@@ -42,17 +42,13 @@ public class RobotContainer {
 
   private void configureBindings() {
     resetNavxButton.onTrue(new InstantCommand(() -> swerveSubs.resetNavx()));
+    resetPosButton.onTrue(new InstantCommand(() -> swerveSubs.resetOdometry(new Pose2d())));
 
   }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("New Auto");
+    return new PathPlannerAuto("New New Auto");
     // PathPlannerPath path = PathPlannerPath.fromPathFile("Example Path");
 
     // return AutoBuilder.followPath(path);
