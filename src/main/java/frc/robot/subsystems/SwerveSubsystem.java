@@ -175,6 +175,7 @@ public class SwerveSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     odometer.update(navx.getRotation2d(), getModulePositions());
+    
     for (SwerveModule swerveMod : swerveModules) {
       swerveMod.print();
     }

@@ -17,19 +17,25 @@ import frc.robot.commands.S_DriveCommand;
 
 public class RobotContainer {
   //SUBSYSTEMS 
-  SwerveSubsystem swerveSubs = new SwerveSubsystem(); 
-
-  //QTDRYR2E 
+  private final SwerveSubsystem swerveSubs = new SwerveSubsystem(); 
 
   //CONTROLLERS  
-  XboxController xbox = new XboxController(ControllerConstants.kDriverControllerPort);
+  private final XboxController xbox = new XboxController(ControllerConstants.kDriverControllerPort);
 
   //DRIVE BUTTONS 
-  JoystickButton resetNavxButton = new JoystickButton(xbox, XboxController.Button.kA.value); 
-  JoystickButton quickTurnButton = new JoystickButton(xbox, XboxController.Button.kX.value); 
+  private final JoystickButton resetNavxButton = new JoystickButton(xbox, XboxController.Button.kA.value); 
+  private final JoystickButton quickTurnButton = new JoystickButton(xbox, XboxController.Button.kX.value); 
+
+  private final JoystickButton fullSpeedButton = new JoystickButton(xbox, XboxController.Button.kY.value); 
+
+  //AXIS 
+  private final int joystickAxis = XboxController.Axis.kRightY.value;
+
 
   public RobotContainer() {
     swerveSubs.setDefaultCommand(new S_DriveCommand(swerveSubs, () -> -xbox.getLeftY(), () -> -xbox.getLeftX(), () -> -xbox.getRightX(), true));
+    // shooter.setDefaultCommand(new Sh_JoystickControlCommand(shooter, () -> xbox.getRawAxis(joystickAxis) * 0.9));
+
     // Configure the trigger bindings
     configureBindings();
   }

@@ -62,7 +62,7 @@ public class S_DriveCommand extends Command {
     /* * * SETTING SWERVE STATES * * */ 
     if (fieldOriented) {
       states = SwerveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
-        ChassisSpeeds.fromFieldRelativeSpeeds(0.2, 0, 0, swerveSubs.getRotation2d())
+        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zSpeed, swerveSubs.getRotation2d())
       );
     } else {
       states = SwerveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
