@@ -19,6 +19,7 @@ import frc.robot.Constants.SwerveConstants;
 import frc.robot.Constants.SwerveConstants.AutonomousConstants;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
@@ -32,6 +33,8 @@ public class SwerveSubsystem extends SubsystemBase {
   //odometer 
   private SwerveDriveOdometry odometer; 
   private Pigeon2 pigeon; 
+
+   public Field2d m_field;
 
   // private BooleanSupplier shouldFlipPath = () -> false;
 
