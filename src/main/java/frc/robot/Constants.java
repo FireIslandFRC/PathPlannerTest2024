@@ -11,7 +11,6 @@ import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
-import frc.robot.SwerveModuleConstants;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -89,7 +88,7 @@ public final class Constants {
       public static final int DRIVE_PORT = 3;
       public static final int ROTATION_PORT = 4;
       public static final int ABSOLUTE_ENCODER_PORT = 22;
-      public static final double OFFSET = 180;
+      public static final double OFFSET = 180 + 10 - 20 + 5;
       public static final boolean DRIVE_INVERTED = false; 
       public static final boolean ROTATION_INVERTED = true; 
 
@@ -102,7 +101,7 @@ public final class Constants {
       public static final int DRIVE_PORT = 5;
       public static final int ROTATION_PORT = 6;
       public static final int ABSOLUTE_ENCODER_PORT = 23;
-      public static final double OFFSET = 40.5 + 90;
+      public static final double OFFSET = 40.5 + 90 ;
       public static final boolean DRIVE_INVERTED = true; 
       public static final boolean ROTATION_INVERTED = true; 
 
@@ -115,7 +114,7 @@ public final class Constants {
       public static final int DRIVE_PORT = 7;
       public static final int ROTATION_PORT = 8;
       public static final int ABSOLUTE_ENCODER_PORT = 24;
-      public static final double OFFSET = -70 + 180;
+      public static final double OFFSET = -70 + 180 + 5;
       public static final boolean DRIVE_INVERTED = true; 
       public static final boolean ROTATION_INVERTED = true; 
 
@@ -136,18 +135,18 @@ public final class Constants {
     public static final double KD_TURNING = 0.0001;
 
     /* * * MAX * * */
-    public static final double MAX_SPEED = 3.6576; //12.0 ft/s 
+    public static final double MAX_SPEED = 3; //12.0 ft/s 
     public static final double MAX_ROTATION = MAX_SPEED / Math.hypot(TRACK_WIDTH / 2.0, WHEEL_BASE / 2.0);
 
     public static class AutonomousConstants {
       public static final HolonomicPathFollowerConfig HOLONOMIC_PATH_FOLLOWER_CONFIG = new HolonomicPathFollowerConfig(
-        new PIDConstants(5.0, 0.0, 0.00), //FIXME translation PID constants 
-        new PIDConstants(5.0, 0.0, 0.0), //FIXME rotation PID constants 
-        1.5, //FIXME max module speed in m/s 
+        new PIDConstants(1.6,0, 0.35), //FIXME translation PID constants
+        new PIDConstants(1,0.25, 0.3), //FIXME rotation PID constants
+        3, //FIXME max module speed in m/s 
         (Math.hypot(WHEEL_BASE, TRACK_WIDTH)) / 2, //FIXME drive base radius in meters. dist from robot center to furthest module 
         new ReplanningConfig() //default path replanning config 
-        );
+      );
     }
-    
+  
   }
 }

@@ -1,10 +1,8 @@
 package frc.robot.subsystems;
 
-import java.util.function.BooleanSupplier;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -14,14 +12,12 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.SwerveModuleConstants;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.Constants.SwerveConstants.AutonomousConstants;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 
 public class SwerveSubsystem extends SubsystemBase {
@@ -32,9 +28,12 @@ public class SwerveSubsystem extends SubsystemBase {
 
   //odometer 
   private SwerveDriveOdometry odometer; 
+
+  //pigeon
   private Pigeon2 pigeon; 
 
-   public Field2d m_field;
+  //field2d
+  //public Field2d m_field;
 
   // private BooleanSupplier shouldFlipPath = () -> false;
 
@@ -46,6 +45,11 @@ public class SwerveSubsystem extends SubsystemBase {
       new SwerveModule(2, SwerveConstants.FrontRight.constants), 
       new SwerveModule(3, SwerveConstants.BackRight.constants)
     };
+
+    //field2d on SD
+    /*m_field = new Field2d();
+    SmartDashboard.putData(m_field);
+    m_field.setRobotPose(getPose());*/
 
     //instantiate pigeon 
     pigeon = new Pigeon2(30);
@@ -202,6 +206,7 @@ public class SwerveSubsystem extends SubsystemBase {
     for (SwerveModule swerveMod : swerveModules) {
       swerveMod.print();
     }
+
 
     SmartDashboard.putNumber("Pigeon", pigeon.getYaw().getValueAsDouble());
     SmartDashboard.putString("POSE INFO", odometer.getPoseMeters().toString());
