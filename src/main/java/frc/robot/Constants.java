@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -20,9 +23,37 @@ import frc.robot.SwerveModuleConstants;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {
+public class Constants {
+
+  public static final int PhID = 15;
+
+  public static HashMap<Double, Double> ArmAngleAtDis = new HashMap<Double, Double>();
+
+
+  public static class ArmConstants {
+    public static final int ArmMotorID = 9;
+    public static final int BrakeID0 = 0;
+    public static final int BrakeID1 = 1;
+  }
+
+  public static class HandConstants {
+    public static final int TopShooterID = 10;
+    public static final int BottomShooterID = 11;
+    public static final int IntakeID = 12;
+  }
+
+  public static class ClimberConstants {
+    public static final int LeftClimber = 13;
+    public static final int RightClimber = 14;
+    public static final int LockLeft = 2;
+    public static final int UnLockLeft = 3;
+    public static final int LockRight = 4;
+    public static final int UnLockRight = 5;
+  }
+
   public static class ControllerConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kOperatorControllerPort = 1;
   }
 
   public static class SwerveConstants {

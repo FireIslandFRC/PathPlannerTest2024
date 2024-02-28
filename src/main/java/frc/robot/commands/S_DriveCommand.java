@@ -12,7 +12,7 @@ public class S_DriveCommand extends Command {
   private SwerveSubsystem swerveSubs; 
 
   private DoubleSupplier xSupplier, ySupplier, zSupplier; 
-  private boolean fieldOriented; 
+  private boolean fieldOriented;
 
   /* * * CONSTRUCTOR * * */
   /* 

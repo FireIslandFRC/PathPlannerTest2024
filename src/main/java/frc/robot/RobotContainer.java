@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.commands.RaiseArm;
 import frc.robot.commands.S_DriveCommand;
 
 public class RobotContainer {
@@ -21,12 +22,15 @@ public class RobotContainer {
   private final SwerveSubsystem swerveSubs = new SwerveSubsystem(); 
 
   //CONTROLLERS  
-  private final XboxController xbox = new XboxController(ControllerConstants.kDriverControllerPort);
-
+  private final XboxController xbox = new XboxController(ControllerConstants.kOperatorControllerPort);
+  private final Joystick joystick = new Joystick(ControllerConstants.kDriverControllerPort);
+  
   //DRIVE BUTTONS 
-  private final JoystickButton resetNavxButton = new JoystickButton(xbox, XboxController.Button.kA.value); 
-  private final JoystickButton resetPosButton = new JoystickButton(xbox, XboxController.Button.kB.value);
-  private final JoystickButton quickTurnButton = new JoystickButton(xbox, XboxController.Button.kX.value); 
+  private final JoystickButton resetNavxButton = new JoystickButton(joystick, 1); 
+  private final JoystickButton resetPosButton = new JoystickButton(joystick, 2);
+  private final JoystickButton quickTurnButton = new JoystickButton(joystick, XboxController.Button.kX.value); 
+  private final JoystickButton RaiseArm = new JoystickButton(xbox, XboxController.Button.kA.value); 
+  private final JoystickButton LowerArm = new JoystickButton(xbox, XboxController.Button.kB.value); 
 
   //AXIS 
   private final int joystickAxis = XboxController.Axis.kRightY.value;
@@ -41,9 +45,10 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    //TODO: all buttons
     resetNavxButton.onTrue(new InstantCommand(() -> swerveSubs.resetNavx()));
     resetPosButton.onTrue(new InstantCommand(() -> swerveSubs.resetOdometry(new Pose2d())));
-
+    RaiseArm.whileTrue(new RaiseArm());
   }
 
   public Command getAutonomousCommand() {
