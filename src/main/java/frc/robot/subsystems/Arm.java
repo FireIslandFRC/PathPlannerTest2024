@@ -1,10 +1,8 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkMaxAlternateEncoder;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -13,8 +11,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.MathFuncs;
 import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants;
 
 
 public class Arm extends SubsystemBase {
@@ -27,6 +25,10 @@ public class Arm extends SubsystemBase {
 
     public static RelativeEncoder ArmEncoder;
     private static SwerveSubsystem s_SwerveSubsystem;
+    private static MathFuncs math;
+    private static double distance;
+    private static double roundedDistance;
+
 
 
     public Arm() {
@@ -46,6 +48,7 @@ public class Arm extends SubsystemBase {
         Constants.ArmAngleAtDis.put(10.0, 13.0);
 
         s_SwerveSubsystem = new SwerveSubsystem();
+        math = new MathFuncs();
     }
 
     public static void RaiseArm(){
@@ -84,10 +87,11 @@ public class Arm extends SubsystemBase {
         return ArmEncoder.getPosition();
     }
 
-    public static void DesiredArmAngle(){
-        
+    public static double DesiredArmAngle(){
+        distance = math.Calculate(s_SwerveSubsystem.getPose().getX(), s_SwerveSubsystem.getPose().getY());
+        roundedDistance = math.RoundToHalf(distance);
+        return Constants.ArmAngleAtDis.get(roundedDistance);
     }
-
 
     @Override
     public void periodic() {

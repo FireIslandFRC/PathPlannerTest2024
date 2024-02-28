@@ -1,13 +1,12 @@
-package frc.robot.Math;
+package frc.robot;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
+import java.lang.Math;
 
-public class FindDistance {
+public class MathFuncs {
 
     public double Dist;
 
-    public FindDistance(){
+    public MathFuncs(){
     }
 
     public double Calculate(double CurrentX, double CurrentY){
@@ -21,6 +20,10 @@ public class FindDistance {
             )
         );
         return Dist;
+    }
+
+    public double RoundToHalf(double num){
+        return (  (  Math.round(num * 2)  ) / 2   );
     }
     
 }
