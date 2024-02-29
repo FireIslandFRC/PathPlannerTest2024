@@ -2,6 +2,9 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
+
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -12,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.Constants.SwerveConstants.AutonomousConstants;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveSubsystem extends SubsystemBase {
@@ -23,6 +27,15 @@ public class SwerveSubsystem extends SubsystemBase {
   //odometer 
   private SwerveDriveOdometry odometer; 
   private AHRS navx; 
+
+  private final SwerveDrivePoseEstimator m_poseEstimator =
+      new SwerveDrivePoseEstimator(
+          SwerveConstants.DRIVE_KINEMATICS,
+          navx.getRotation2d(),
+          getModulePositions(),
+          new Pose2d(),
+          VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
+          VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));
 
   // private BooleanSupplier shouldFlipPath = () -> false;
 
@@ -38,6 +51,8 @@ public class SwerveSubsystem extends SubsystemBase {
     //instantiate navx 
     navx = new AHRS();
     navx.zeroYaw();
+
+    
 
     //instantiate odometer 
     odometer = new SwerveDriveOdometry(
