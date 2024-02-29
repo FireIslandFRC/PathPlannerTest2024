@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
-import com.kauailabs.navx.frc.AHRS;
+
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.VecBuilder;
@@ -11,12 +12,15 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.Constants.SwerveConstants.AutonomousConstants;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.pathplanner.lib.path.PathConstraints;
 
 public class SwerveSubsystem extends SubsystemBase {
   /* * * INITIALIZATION * * */
@@ -26,7 +30,12 @@ public class SwerveSubsystem extends SubsystemBase {
 
   //odometer 
   private SwerveDriveOdometry odometer; 
-  private AHRS navx; 
+
+  //pigeon
+  private Pigeon2 pigeon; 
+
+  //field2d
+  //public Field2d m_field;
 
   private final SwerveDrivePoseEstimator m_poseEstimator =
       new SwerveDrivePoseEstimator(
@@ -48,16 +57,21 @@ public class SwerveSubsystem extends SubsystemBase {
       new SwerveModule(3, SwerveConstants.BackRight.constants)
     };
 
-    //instantiate navx 
-    navx = new AHRS();
-    navx.zeroYaw();
+    //field2d on SD
+    /*m_field = new Field2d();
+    SmartDashboard.putData(m_field);
+    m_field.setRobotPose(getPose());*/
+
+    //instantiate pigeon 
+    pigeon = new Pigeon2(30);
+    pigeon.reset();
 
     
 
     //instantiate odometer 
     odometer = new SwerveDriveOdometry(
       SwerveConstants.DRIVE_KINEMATICS, 
-      navx.getRotation2d(), 
+      pigeon.getRotation2d(), 
       getModulePositions()
     );
 
@@ -73,16 +87,32 @@ public class SwerveSubsystem extends SubsystemBase {
 
   }
 
+  public Command driveToPose(Pose2d pose)
+  {
+//PATH CONSTRAINTS
+  PathConstraints constraints = new PathConstraints(
+        3.0, 4.0,
+        Units.degreesToRadians(540), Units.degreesToRadians(720));
+
+// Since AutoBuilder is configured, we can use it to build pathfinding commands
+    return AutoBuilder.pathfindToPose(
+        pose,
+        constraints,
+        0.0, // Goal end velocity in meters/sec
+        0.0 // Rotation delay distance in meters. This is how far the robot should travel before attempting to rotate.
+                                     );
+  }
+
     /* * * ODOMETRY * * */
 
   //returns the Rotation2d object 
   //a 2d coordinate represented by a point on the unit circle (the rotation of the robot)
   public Rotation2d getRotation2d() {
-    return navx.getRotation2d();
+    return pigeon.getRotation2d();
   }
 
-  public void resetNavx() {
-    navx.reset();
+  public void resetPigeon() {
+    pigeon.reset();
   }
 
   public Pose2d getPose() {
@@ -184,13 +214,14 @@ public class SwerveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    odometer.update(navx.getRotation2d(), getModulePositions());
+    odometer.update(pigeon.getRotation2d(), getModulePositions());
     
     for (SwerveModule swerveMod : swerveModules) {
       swerveMod.print();
     }
 
-    SmartDashboard.putNumber("NAVX", navx.getYaw());
+
+    SmartDashboard.putNumber("Pigeon", pigeon.getYaw().getValueAsDouble());
     SmartDashboard.putString("POSE INFO", odometer.getPoseMeters().toString());
     // SmartDashboard.putString("WORKING DIR", System.getProperty("user.dir"));
     

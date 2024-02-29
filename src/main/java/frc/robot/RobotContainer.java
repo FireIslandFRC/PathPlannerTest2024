@@ -1,11 +1,18 @@
 package frc.robot;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -13,7 +20,7 @@ import frc.robot.commands.LowerArm;
 import frc.robot.commands.RaiseArm;
 import frc.robot.commands.S_DriveCommand;
 
-public class RobotContainer {
+public class RobotContainer extends SubsystemBase{
   //SUBSYSTEMS 
   private final SwerveSubsystem swerveSubs = new SwerveSubsystem(); 
 
@@ -22,7 +29,7 @@ public class RobotContainer {
   private final Joystick joystick = new Joystick(ControllerConstants.kDriverControllerPort);
   
   //DRIVE BUTTONS 
-  private final JoystickButton resetNavxButton = new JoystickButton(joystick, 1); 
+  private final JoystickButton resetPigeonButton = new JoystickButton(joystick, 1); 
   private final JoystickButton resetPosButton = new JoystickButton(joystick, 2);
   private final JoystickButton RaiseArm = new JoystickButton(xbox, XboxController.Button.kA.value); 
   private final JoystickButton LowerArm = new JoystickButton(xbox, XboxController.Button.kB.value); 
@@ -32,8 +39,22 @@ public class RobotContainer {
 
 
   public RobotContainer() {
-    swerveSubs.setDefaultCommand(new S_DriveCommand(swerveSubs, () -> -xbox.getLeftY(), () -> -xbox.getLeftX(), () -> -xbox.getRightX(), true));
-    // shooter.setDefaultCommand(new Sh_JoystickControlCommand(shooter, () -> xbox.getRawAxis(joystickAxis) * 0.9));
+    swerveSubs.setDefaultCommand(
+      new S_DriveCommand(
+        swerveSubs,
+        () -> -xbox.getLeftY(),
+        () -> -xbox.getLeftX(),
+        () -> -xbox.getRightX(),
+        true
+      )
+    );
+
+    m_field = new Field2d();
+    SmartDashboard.putData(m_field);
+
+    //autoChooser = AutoBuilder.buildAutoChooser();
+    //SmartDashboard.putData("auto chooser", autoChooser);
+
 
     // Configure the trigger bindings
     configureBindings();
@@ -41,10 +62,11 @@ public class RobotContainer {
 
   private void configureBindings() {
     //TODO: all buttons
-    resetNavxButton.onTrue(new InstantCommand(() -> swerveSubs.resetNavx()));
     resetPosButton.onTrue(new InstantCommand(() -> swerveSubs.resetOdometry(new Pose2d())));
     RaiseArm.whileTrue(new RaiseArm());
     LowerArm.whileTrue(new LowerArm());
+    resetPigeonButton.onTrue(new InstantCommand(() -> swerveSubs.resetPigeon()));
+    resetPosButton.onTrue(new InstantCommand(() -> swerveSubs.resetOdometry(new Pose2d())));
   }
 
   public Command getAutonomousCommand() {
@@ -53,6 +75,12 @@ public class RobotContainer {
     // PathPlannerPath path = PathPlannerPath.fromPathFile("Example Path");
 
     // return AutoBuilder.followPath(path);
+  }
+
+  @Override
+  public void periodic() {
+        m_field.setRobotPose(swerveSubs.getPose());
+
   }
 
 }

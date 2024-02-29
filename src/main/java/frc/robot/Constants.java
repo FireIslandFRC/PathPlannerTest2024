@@ -11,6 +11,7 @@ import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.util.Units;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -59,11 +60,11 @@ public class Constants {
 
     /* * * MEASUREMENTS * * */
     //FIXME REPLACE WITH VALUES OF ACTUAL BASE 
-    public static final double WHEEL_DIAMETER = 4 * 2.5 / 100;
-    public static final double TRACK_WIDTH = 0.635;
-    public static final double WHEEL_BASE = 0.635;
+    public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
+    public static final double TRACK_WIDTH = Units.inchesToMeters(26);
+    public static final double WHEEL_BASE = Units.inchesToMeters(26);
     
-    public static final double DRIVE_GEAR_RATIO = 8.14 / 1;
+    public static final double DRIVE_GEAR_RATIO = 6.75 / 1;
     public static final double ROTATION_GEAR_RATIO = 150 / 7;
     
     public static final double VOLTAGE = 7.2;
@@ -101,35 +102,9 @@ public class Constants {
     //FIXME FILL IN VALUES FOR FRONT LEFT 
     public static class FrontLeft {
       public static final int DRIVE_PORT = 1;
-      public static final int ROTATION_PORT = 5;
-      public static final int ABSOLUTE_ENCODER_PORT = 9;
-      public static final double OFFSET = 80.95;
-      public static final boolean DRIVE_INVERTED = false; 
-      public static final boolean ROTATION_INVERTED = true; 
-
-      public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_PORT, ROTATION_PORT, ABSOLUTE_ENCODER_PORT, OFFSET, DRIVE_INVERTED, ROTATION_INVERTED);
-    }
-
-    /* * * BACK LEFT * * */
-    //FIXME FILL IN VALUES FOR BACK LEFT 
-    public static class BackLeft {
-      public static final int DRIVE_PORT = 2;
-      public static final int ROTATION_PORT = 6;
-      public static final int ABSOLUTE_ENCODER_PORT = 10;
-      public static final double OFFSET = -101.60 + 6;
-      public static final boolean DRIVE_INVERTED = false; 
-      public static final boolean ROTATION_INVERTED = true; 
-
-      public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_PORT, ROTATION_PORT, ABSOLUTE_ENCODER_PORT, OFFSET, DRIVE_INVERTED, ROTATION_INVERTED);
-    }
-
-    /* * * BACK RIGHT * * */
-    //FIXME FILL IN VALUES FOR BACK RIGHT 
-    public static class BackRight {
-      public static final int DRIVE_PORT = 3;
-      public static final int ROTATION_PORT = 7;
-      public static final int ABSOLUTE_ENCODER_PORT = 11;
-      public static final double OFFSET = -28.92 + 6;
+      public static final int ROTATION_PORT = 2;
+      public static final int ABSOLUTE_ENCODER_PORT = 21;
+      public static final double OFFSET = 22.5 + 90;
       public static final boolean DRIVE_INVERTED = false; 
       public static final boolean ROTATION_INVERTED = true; 
 
@@ -139,15 +114,43 @@ public class Constants {
     /* * * FRONT RIGHT * * */
     //FIXME FILL IN VALUES FOR FRONT RIGHT 
     public static class FrontRight {
-      public static final int DRIVE_PORT = 4;
-      public static final int ROTATION_PORT = 8;
-      public static final int ABSOLUTE_ENCODER_PORT = 12;
-      public static final double OFFSET = -25.31 - 2;
+      public static final int DRIVE_PORT = 3;
+      public static final int ROTATION_PORT = 4;
+      public static final int ABSOLUTE_ENCODER_PORT = 22;
+      public static final double OFFSET = 180 + 10 - 20 + 5;
       public static final boolean DRIVE_INVERTED = false; 
       public static final boolean ROTATION_INVERTED = true; 
 
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_PORT, ROTATION_PORT, ABSOLUTE_ENCODER_PORT, OFFSET, DRIVE_INVERTED, ROTATION_INVERTED);
     }
+
+    /* * * BACK LEFT * * */
+    //FIXME FILL IN VALUES FOR BACK LEFT 
+    public static class BackLeft {
+      public static final int DRIVE_PORT = 5;
+      public static final int ROTATION_PORT = 6;
+      public static final int ABSOLUTE_ENCODER_PORT = 23;
+      public static final double OFFSET = 40.5 + 90 ;
+      public static final boolean DRIVE_INVERTED = true; 
+      public static final boolean ROTATION_INVERTED = true; 
+
+      public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_PORT, ROTATION_PORT, ABSOLUTE_ENCODER_PORT, OFFSET, DRIVE_INVERTED, ROTATION_INVERTED);
+    }
+
+    /* * * BACK RIGHT * * */
+    //FIXME FILL IN VALUES FOR BACK RIGHT 
+    public static class BackRight {
+      public static final int DRIVE_PORT = 7;
+      public static final int ROTATION_PORT = 8;
+      public static final int ABSOLUTE_ENCODER_PORT = 24;
+      public static final double OFFSET = -70 + 180 + 5;
+      public static final boolean DRIVE_INVERTED = true; 
+      public static final boolean ROTATION_INVERTED = true; 
+
+      public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_PORT, ROTATION_PORT, ABSOLUTE_ENCODER_PORT, OFFSET, DRIVE_INVERTED, ROTATION_INVERTED);
+    }
+
+    
     
     /* * * CONVERSIONS FOR ENCODERS * * */
     //velocity in meters per sec instead of RPM 
@@ -161,18 +164,18 @@ public class Constants {
     public static final double KD_TURNING = 0.0001;
 
     /* * * MAX * * */
-    public static final double MAX_SPEED = 3.6576; //12.0 ft/s 
+    public static final double MAX_SPEED = 3; //12.0 ft/s 
     public static final double MAX_ROTATION = MAX_SPEED / Math.hypot(TRACK_WIDTH / 2.0, WHEEL_BASE / 2.0);
 
     public static class AutonomousConstants {
       public static final HolonomicPathFollowerConfig HOLONOMIC_PATH_FOLLOWER_CONFIG = new HolonomicPathFollowerConfig(
-        new PIDConstants(5.0, 0.0, 0.00), //FIXME translation PID constants 
-        new PIDConstants(5.0, 0.0, 0.0), //FIXME rotation PID constants 
-        1.5, //FIXME max module speed in m/s 
+        new PIDConstants(1.6,0, 0.35), //FIXME translation PID constants
+        new PIDConstants(1,0.25, 0.3), //FIXME rotation PID constants
+        3, //FIXME max module speed in m/s 
         (Math.hypot(WHEEL_BASE, TRACK_WIDTH)) / 2, //FIXME drive base radius in meters. dist from robot center to furthest module 
         new ReplanningConfig() //default path replanning config 
-        );
+      );
     }
-    
+  
   }
 }

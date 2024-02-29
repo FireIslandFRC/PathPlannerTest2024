@@ -57,7 +57,7 @@ public class SwerveModule {
         //CONFIGURATIONS
         driveMotor.setInverted(moduleConstants.driveInverted);
         driveMotor.setIdleMode(IdleMode.kBrake);
-        driveMotor.setSmartCurrentLimit(25); //set current limit to 25 amps to prevent browning out in the middle of driving 
+        driveMotor.setSmartCurrentLimit(20); //set current limit to 25 amps to prevent browning out in the middle of driving 
 
         //set conversion factor for drive enc 
         driveEncoder.setVelocityConversionFactor(SwerveConstants.DRIVE_ENCODER_VELOCITY_CONVERSION); //reads velocity in meters per second instead of RPM
