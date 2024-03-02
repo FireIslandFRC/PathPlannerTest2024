@@ -88,7 +88,7 @@ public class Arm extends SubsystemBase {
     }
 
     public static double DesiredArmAngle(){
-        distance = math.Calculate(s_SwerveSubsystem.getPose().getX(), s_SwerveSubsystem.getPose().getY());
+        distance = math.CalculateDistance();
         roundedDistance = math.RoundToHalf(distance);
         return Constants.ArmAngleAtDis.get(roundedDistance);
     }

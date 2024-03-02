@@ -2,15 +2,11 @@ package frc.robot;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -36,6 +32,7 @@ public class RobotContainer extends SubsystemBase{
 
   //AXIS 
   //private final int joystickAxis = XboxController.Axis.kRightY.value;
+  public Field2d m_field;
 
 
   public RobotContainer() {
@@ -62,11 +59,11 @@ public class RobotContainer extends SubsystemBase{
 
   private void configureBindings() {
     //TODO: all buttons
-    resetPosButton.onTrue(new InstantCommand(() -> swerveSubs.resetOdometry(new Pose2d())));
+    resetPosButton.onTrue(new InstantCommand(() -> swerveSubs.resetOdometry()));
     RaiseArm.whileTrue(new RaiseArm());
     LowerArm.whileTrue(new LowerArm());
     resetPigeonButton.onTrue(new InstantCommand(() -> swerveSubs.resetPigeon()));
-    resetPosButton.onTrue(new InstantCommand(() -> swerveSubs.resetOdometry(new Pose2d())));
+    resetPosButton.onTrue(new InstantCommand(() -> swerveSubs.resetOdometry()));
   }
 
   public Command getAutonomousCommand() {

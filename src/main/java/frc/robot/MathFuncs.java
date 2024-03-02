@@ -1,15 +1,21 @@
 package frc.robot;
 
 import java.lang.Math;
+import frc.robot.subsystems.SwerveSubsystem;
 
 public class MathFuncs {
 
     public double Dist;
+    private double CurrentX, CurrentY;
+    private SwerveSubsystem s_SwerveSubsystem;
+    private double CalcAngle, WantedAngle;
 
     public MathFuncs(){
+        CurrentX = s_SwerveSubsystem.getPose().getX();
+        CurrentY = s_SwerveSubsystem.getPose().getY();
     }
 
-    public double Calculate(double CurrentX, double CurrentY){
+    public double CalculateDistance(){
         Dist = (
             Math.sqrt(
                 Math.pow(
@@ -24,6 +30,12 @@ public class MathFuncs {
 
     public double RoundToHalf(double num){
         return (  (  Math.round(num * 2)  ) / 2   );
+    }
+
+    public double ShootingAngle(){
+        CalcAngle = Math.atan((9-CurrentX) / CurrentY);
+        WantedAngle = 180 - CalcAngle;
+        return WantedAngle;
     }
     
 }

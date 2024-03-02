@@ -16,9 +16,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.Constants.SwerveConstants.AutonomousConstants;
+import frc.robot.LimelightHelpers;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.pathplanner.lib.path.PathConstraints;
 
@@ -40,7 +40,7 @@ public class SwerveSubsystem extends SubsystemBase {
   private final SwerveDrivePoseEstimator m_poseEstimator =
       new SwerveDrivePoseEstimator(
           SwerveConstants.DRIVE_KINEMATICS,
-          navx.getRotation2d(),
+          pigeon.getRotation2d(),
           getModulePositions(),
           new Pose2d(),
           VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
@@ -77,7 +77,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
     AutoBuilder.configureHolonomic(
       this::getPose, 
-      this::resetOdometry, 
+      this::setPose, 
       this::getRobotRelativeSpeeds, 
       this::driveRobotRelative, 
       AutonomousConstants.HOLONOMIC_PATH_FOLLOWER_CONFIG, 
@@ -116,16 +116,16 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public Pose2d getPose() {
-    return odometer.getPoseMeters();
+    return m_poseEstimator.getEstimatedPosition();
   }
 
   // FIXME i dont think this works as intended,, resetPosition should reset everything to 0 
   public void setPose(Pose2d pose) {
-    odometer.resetPosition(getRotation2d(), getModulePositions(), pose);
+    m_poseEstimator.resetPosition(getRotation2d(), getModulePositions(), pose);
   }
 
-  public void resetOdometry(Pose2d pose) {
-    odometer.resetPosition(getRotation2d(), getModulePositions(), pose);
+  public void resetOdometry() {
+    m_poseEstimator.resetPosition(getRotation2d(), getModulePositions(), new Pose2d());
   }
 
   public ChassisSpeeds getRobotRelativeSpeeds() {
@@ -213,6 +213,9 @@ public class SwerveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    m_poseEstimator.update(
+        pigeon.getRotation2d(),
+        getModulePositions());
     // This method will be called once per scheduler run
     odometer.update(pigeon.getRotation2d(), getModulePositions());
     
@@ -220,9 +223,18 @@ public class SwerveSubsystem extends SubsystemBase {
       swerveMod.print();
     }
 
+    LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+    if(limelightMeasurement.tagCount >= 2)
+    {
+      m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
+      m_poseEstimator.addVisionMeasurement(
+          limelightMeasurement.pose,
+          limelightMeasurement.timestampSeconds-3);
+    }
+
 
     SmartDashboard.putNumber("Pigeon", pigeon.getYaw().getValueAsDouble());
-    SmartDashboard.putString("POSE INFO", odometer.getPoseMeters().toString());
+    SmartDashboard.putString("POSE INFO", m_poseEstimator.toString());
     // SmartDashboard.putString("WORKING DIR", System.getProperty("user.dir"));
     
   }
