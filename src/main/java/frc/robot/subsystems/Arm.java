@@ -82,7 +82,7 @@ public class Arm extends SubsystemBase {
         Arm_Motor.set(0);
     }
 
-    public double GetArmPos(){
+    public static double GetArmPos(){
         ArmEncoder.getPosition();
         return ArmEncoder.getPosition();
     }

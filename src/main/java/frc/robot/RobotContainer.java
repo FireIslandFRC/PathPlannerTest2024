@@ -1,5 +1,7 @@
 package frc.robot;
 
+import java.util.concurrent.SynchronousQueue;
+
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -11,10 +13,13 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.commands.Intake;
 import frc.robot.commands.LowerArm;
 import frc.robot.commands.RaiseArm;
 import frc.robot.commands.S_DriveCommand;
+import frc.robot.commands.Shoot;
 
 public class RobotContainer extends SubsystemBase{
   //SUBSYSTEMS 
@@ -29,6 +34,8 @@ public class RobotContainer extends SubsystemBase{
   private final JoystickButton resetPosButton = new JoystickButton(joystick, 2);
   private final JoystickButton RaiseArm = new JoystickButton(xbox, XboxController.Button.kA.value); 
   private final JoystickButton LowerArm = new JoystickButton(xbox, XboxController.Button.kB.value); 
+  private final JoystickButton Intake = new JoystickButton(xbox, XboxController.Button.kX.value);
+  private final JoystickButton Shoot = new JoystickButton(xbox, 4);
 
   //AXIS 
   //private final int joystickAxis = XboxController.Axis.kRightY.value;
@@ -64,6 +71,8 @@ public class RobotContainer extends SubsystemBase{
     LowerArm.whileTrue(new LowerArm());
     resetPigeonButton.onTrue(new InstantCommand(() -> swerveSubs.resetPigeon()));
     resetPosButton.onTrue(new InstantCommand(() -> swerveSubs.resetOdometry()));
+    Intake.onTrue(new Intake());
+    Shoot.onTrue(new Shoot());
   }
 
   public Command getAutonomousCommand() {
@@ -76,8 +85,8 @@ public class RobotContainer extends SubsystemBase{
 
   @Override
   public void periodic() {
-        m_field.setRobotPose(swerveSubs.getPose());
-
+    SmartDashboard.putNumber("ArmAngle", Arm.GetArmPos());
+    m_field.setRobotPose(swerveSubs.getPose());
   }
 
 }

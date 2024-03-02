@@ -15,7 +15,7 @@ public class Hand extends SubsystemBase {
   public static DigitalInput HandLimitSwitch = new DigitalInput(0);
 
   public Hand() {
-    BottonShooter.setInverted(true);
+    BottonShooter.setInverted(false);
     TopShooter.setInverted(false);
     BottonShooter.follow(TopShooter);
   }
@@ -23,6 +23,10 @@ public class Hand extends SubsystemBase {
   public static void ShootAtSpeed(double speed){
     TopShooter.set(speed);
   }
+
+  public static void IdleShoot(){
+    TopShooter.set(0.5);
+    }
 
   public static void Intake(){
     Intake.set(0.5);
@@ -48,6 +52,14 @@ public class Hand extends SubsystemBase {
   public static boolean IntakeLimit(){
     boolean IntakeSuccess = HandLimitSwitch.get();
     return IntakeSuccess;
+  }
+
+  public static void IntakeUntilSwitch(){
+    if (!IntakeLimit()){
+      Intake();
+    }else{
+      StopIntake();
+    }
   }
 
   @Override
