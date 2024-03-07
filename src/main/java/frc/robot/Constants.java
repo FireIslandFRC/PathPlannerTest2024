@@ -30,6 +30,7 @@ public class Constants {
 
   public static class ArmConstants {
     public static final int ArmMotorID = 9;
+    public static final int ArmMotorLID = 15;
     public static final int BrakeID0 = 0;
     public static final int BrakeID1 = 1;
   }
@@ -104,7 +105,7 @@ public class Constants {
       public static final int DRIVE_PORT = 1;
       public static final int ROTATION_PORT = 2;
       public static final int ABSOLUTE_ENCODER_PORT = 21;
-      public static final double OFFSET = 22.5 + 90;
+      public static final double OFFSET = 22.5 + 62;
       public static final boolean DRIVE_INVERTED = false; 
       public static final boolean ROTATION_INVERTED = true; 
 
@@ -117,8 +118,8 @@ public class Constants {
       public static final int DRIVE_PORT = 3;
       public static final int ROTATION_PORT = 4;
       public static final int ABSOLUTE_ENCODER_PORT = 22;
-      public static final double OFFSET = 180 + 10 - 20 + 5;
-      public static final boolean DRIVE_INVERTED = false; 
+      public static final double OFFSET = 300 + 8;
+      public static final boolean DRIVE_INVERTED = true; 
       public static final boolean ROTATION_INVERTED = true; 
 
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_PORT, ROTATION_PORT, ABSOLUTE_ENCODER_PORT, OFFSET, DRIVE_INVERTED, ROTATION_INVERTED);
@@ -130,8 +131,8 @@ public class Constants {
       public static final int DRIVE_PORT = 5;
       public static final int ROTATION_PORT = 6;
       public static final int ABSOLUTE_ENCODER_PORT = 23;
-      public static final double OFFSET = 40.5 + 90 ;
-      public static final boolean DRIVE_INVERTED = true; 
+      public static final double OFFSET = 40.5 - 8 - 5;
+      public static final boolean DRIVE_INVERTED = false; 
       public static final boolean ROTATION_INVERTED = true; 
 
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(DRIVE_PORT, ROTATION_PORT, ABSOLUTE_ENCODER_PORT, OFFSET, DRIVE_INVERTED, ROTATION_INVERTED);
@@ -143,7 +144,7 @@ public class Constants {
       public static final int DRIVE_PORT = 7;
       public static final int ROTATION_PORT = 8;
       public static final int ABSOLUTE_ENCODER_PORT = 24;
-      public static final double OFFSET = -70 + 180 + 5;
+      public static final double OFFSET = -70 + 180 + 5 - 10 + 5.;
       public static final boolean DRIVE_INVERTED = true; 
       public static final boolean ROTATION_INVERTED = true; 
 

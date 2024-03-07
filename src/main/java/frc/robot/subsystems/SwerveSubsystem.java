@@ -32,23 +32,27 @@ public class SwerveSubsystem extends SubsystemBase {
   private SwerveDriveOdometry odometer; 
 
   //pigeon
-  private Pigeon2 pigeon; 
+  public Pigeon2 pigeon = new Pigeon2(30); 
 
   //field2d
   //public Field2d m_field;
 
-  private final SwerveDrivePoseEstimator m_poseEstimator =
-      new SwerveDrivePoseEstimator(
+  private SwerveDrivePoseEstimator m_poseEstimator;
+
+  // private BooleanSupplier shouldFlipPath = () -> false;
+
+  public SwerveSubsystem() {
+
+    /*m_poseEstimator = new SwerveDrivePoseEstimator(
           SwerveConstants.DRIVE_KINEMATICS,
           pigeon.getRotation2d(),
           getModulePositions(),
           new Pose2d(),
           VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
-          VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));
+          VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));*/
 
-  // private BooleanSupplier shouldFlipPath = () -> false;
-
-  public SwerveSubsystem() {
+    
+    pigeon.reset();
 
     swerveModules = new SwerveModule[] {
       new SwerveModule(0, SwerveConstants.FrontLeft.constants), 
@@ -63,8 +67,6 @@ public class SwerveSubsystem extends SubsystemBase {
     m_field.setRobotPose(getPose());*/
 
     //instantiate pigeon 
-    pigeon = new Pigeon2(30);
-    pigeon.reset();
 
     
 
@@ -116,16 +118,16 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public Pose2d getPose() {
-    return m_poseEstimator.getEstimatedPosition();
+    return odometer.getPoseMeters();
   }
 
   // FIXME i dont think this works as intended,, resetPosition should reset everything to 0 
   public void setPose(Pose2d pose) {
-    m_poseEstimator.resetPosition(getRotation2d(), getModulePositions(), pose);
+    odometer.resetPosition(getRotation2d(), getModulePositions(), pose);
   }
 
   public void resetOdometry() {
-    m_poseEstimator.resetPosition(getRotation2d(), getModulePositions(), new Pose2d());
+    odometer.resetPosition(getRotation2d(), getModulePositions(), new Pose2d());
   }
 
   public ChassisSpeeds getRobotRelativeSpeeds() {
@@ -213,9 +215,9 @@ public class SwerveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    m_poseEstimator.update(
+    /*m_poseEstimator.update(
         pigeon.getRotation2d(),
-        getModulePositions());
+        getModulePositions());*/
     // This method will be called once per scheduler run
     odometer.update(pigeon.getRotation2d(), getModulePositions());
     
@@ -223,18 +225,18 @@ public class SwerveSubsystem extends SubsystemBase {
       swerveMod.print();
     }
 
-    LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+    /*LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
     if(limelightMeasurement.tagCount >= 2)
     {
       m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
       m_poseEstimator.addVisionMeasurement(
           limelightMeasurement.pose,
           limelightMeasurement.timestampSeconds-3);
-    }
+    }*/
 
 
     SmartDashboard.putNumber("Pigeon", pigeon.getYaw().getValueAsDouble());
-    SmartDashboard.putString("POSE INFO", m_poseEstimator.toString());
+    //SmartDashboard.putString("POSE INFO", m_poseEstimator.toString());
     // SmartDashboard.putString("WORKING DIR", System.getProperty("user.dir"));
     
   }

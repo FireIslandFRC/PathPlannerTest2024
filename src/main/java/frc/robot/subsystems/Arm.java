@@ -18,12 +18,13 @@ import frc.robot.Constants.ArmConstants;
 public class Arm extends SubsystemBase {
     public static double speed;
     private static CANSparkMax Arm_Motor = new CANSparkMax(ArmConstants.ArmMotorID, MotorType.kBrushless);
-    private static DoubleSolenoid Brake = new DoubleSolenoid(Constants.PhID, PneumaticsModuleType.REVPH, ArmConstants.BrakeID0, ArmConstants.BrakeID1);
+    private static CANSparkMax Arm_MotorL = new CANSparkMax(ArmConstants.ArmMotorLID, MotorType.kBrushless);
+    //private static DoubleSolenoid Brake = new DoubleSolenoid(Constants.PhID, PneumaticsModuleType.REVPH, ArmConstants.BrakeID0, ArmConstants.BrakeID1);
     //public static AbsoluteEncoder ArmEncoder = Arm_Motor.getAbsoluteEncoder(Type.kDutyCycle);
     private static final SparkMaxAlternateEncoder.Type kAltEncType = SparkMaxAlternateEncoder.Type.kQuadrature;
     private static final int kCPR = 8192;
 
-    public static RelativeEncoder ArmEncoder;
+    //public static RelativeEncoder ArmEncoder;
     private static SwerveSubsystem s_SwerveSubsystem;
     private static MathFuncs math;
     private static double distance;
@@ -32,7 +33,9 @@ public class Arm extends SubsystemBase {
 
 
     public Arm() {
-        ArmEncoder = Arm_Motor.getAlternateEncoder(kAltEncType, kCPR);
+        Arm_MotorL.setInverted(true);
+        Arm_MotorL.follow(Arm_Motor);
+        //ArmEncoder = Arm_Motor.getAlternateEncoder(kAltEncType, kCPR);
         Constants.ArmAngleAtDis.put(4.0, 1.0);
         Constants.ArmAngleAtDis.put(4.5, 2.0);
         Constants.ArmAngleAtDis.put(5.0, 3.0);
@@ -52,40 +55,40 @@ public class Arm extends SubsystemBase {
     }
 
     public static void RaiseArm(){
-        Arm_Motor.set(1);
+        Arm_Motor.set(0.5);
     } 
 
     public static void LowerArm(){
-        Arm_Motor.set(-1);
+        Arm_Motor.set(-0.5);
     }
 
     public static boolean ArmToPoint(double pos){
-        speed = 0.1 * (pos - ArmEncoder.getPosition());
+        /*speed = 0.1 * (pos - ArmEncoder.getPosition());
         if ((pos - ArmEncoder.getPosition()) > 0.1 || (pos - ArmEncoder.getPosition()) < 0.1){
             Arm_Motor.set(speed);
         }else{
             Arm_Motor.set(0);
             return true;
-        }
+        }*/
         return false;
     }
 
     public static void LockArm(){
-        Brake.set(Value.kForward);
+        //Brake.set(Value.kForward);
     }
 
     public static void UnLockArm(){
-        Brake.set(Value.kReverse);
+        //Brake.set(Value.kReverse);
     }
 
     public static void StopArm(){
         Arm_Motor.set(0);
     }
 
-    public static double GetArmPos(){
+    /*public static double GetArmPos(){
         ArmEncoder.getPosition();
         return ArmEncoder.getPosition();
-    }
+    }*/
 
     public static double DesiredArmAngle(){
         distance = math.CalculateDistance();
@@ -95,7 +98,7 @@ public class Arm extends SubsystemBase {
 
     @Override
     public void periodic() {
-       SmartDashboard.putNumber("Arm pos", GetArmPos());
+       //SmartDashboard.putNumber("Arm pos", GetArmPos());
     }
 
 }

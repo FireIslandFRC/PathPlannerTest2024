@@ -14,8 +14,8 @@ public class Climber extends SubsystemBase {
 
   public static CANSparkMax ClimberLeft = new CANSparkMax(ClimberConstants.LeftClimber , MotorType.kBrushless);
   public static CANSparkMax ClimberRight = new CANSparkMax(ClimberConstants.RightClimber , MotorType.kBrushless);
-  public static DoubleSolenoid BrakeLeft = new DoubleSolenoid(Constants.PhID, PneumaticsModuleType.REVPH, ClimberConstants.LockLeft, ClimberConstants.UnLockLeft);
-  public static DoubleSolenoid BrakeRight = new DoubleSolenoid(Constants.PhID, PneumaticsModuleType.REVPH, ClimberConstants.LockRight, ClimberConstants.UnLockRight);
+  //public static DoubleSolenoid BrakeLeft = new DoubleSolenoid(Constants.PhID, PneumaticsModuleType.REVPH, ClimberConstants.LockLeft, ClimberConstants.UnLockLeft);
+  //public static DoubleSolenoid BrakeRight = new DoubleSolenoid(Constants.PhID, PneumaticsModuleType.REVPH, ClimberConstants.LockRight, ClimberConstants.UnLockRight);
 
   public Climber() {
 
@@ -38,13 +38,13 @@ public class Climber extends SubsystemBase {
   }
 
   public static void Lock(){
-    BrakeLeft.set(Value.kForward);
-    BrakeRight.set(Value.kForward);
+    //BrakeLeft.set(Value.kForward);
+    //BrakeRight.set(Value.kForward);
   }
 
   public static void UnLock(){
-    BrakeLeft.set(Value.kReverse);
-    BrakeRight.set(Value.kReverse);
+    //BrakeLeft.set(Value.kReverse);
+    //BrakeRight.set(Value.kReverse);
   }
 
   public static void StopClimberLeft(){

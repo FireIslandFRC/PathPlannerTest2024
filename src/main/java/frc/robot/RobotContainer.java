@@ -39,7 +39,7 @@ public class RobotContainer extends SubsystemBase{
 
   //AXIS 
   //private final int joystickAxis = XboxController.Axis.kRightY.value;
-  public Field2d m_field;
+  //public Field2d m_field;
 
 
   public RobotContainer() {
@@ -53,8 +53,8 @@ public class RobotContainer extends SubsystemBase{
       )
     );
 
-    m_field = new Field2d();
-    SmartDashboard.putData(m_field);
+    ///m_field = new Field2d();
+    //SmartDashboard.putData(m_field);
 
     //autoChooser = AutoBuilder.buildAutoChooser();
     //SmartDashboard.putData("auto chooser", autoChooser);
@@ -85,8 +85,8 @@ public class RobotContainer extends SubsystemBase{
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("ArmAngle", Arm.GetArmPos());
-    m_field.setRobotPose(swerveSubs.getPose());
+   // SmartDashboard.putNumber("ArmAngle", Arm.GetArmPos());
+    //m_field.setRobotPose(swerveSubs.getPose());
   }
 
 }
