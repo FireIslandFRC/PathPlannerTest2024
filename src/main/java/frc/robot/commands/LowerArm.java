@@ -28,7 +28,6 @@ public class LowerArm extends Command {
   public void end(boolean interrupted) {
     Arm.StopArm();
     Arm.LockArm();
-    done = true;
   }
 
   // Returns true when the command should end.

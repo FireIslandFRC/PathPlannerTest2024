@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2,
-      "y": 7.0
+      "x": 1.2309311079429772,
+      "y": 5.547612425391122
     },
     "rotation": 0
   },
@@ -12,9 +12,21 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "LowerArm"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootAuto"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "Example Path"
+            "pathName": "CenterShoot"
           }
         }
       ]

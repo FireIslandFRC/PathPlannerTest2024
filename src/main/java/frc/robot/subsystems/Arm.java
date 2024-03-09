@@ -1,8 +1,10 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import com.revrobotics.SparkMaxAlternateEncoder;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -19,8 +21,8 @@ public class Arm extends SubsystemBase {
     public static double speed;
     private static CANSparkMax Arm_Motor = new CANSparkMax(ArmConstants.ArmMotorID, MotorType.kBrushless);
     private static CANSparkMax Arm_MotorL = new CANSparkMax(ArmConstants.ArmMotorLID, MotorType.kBrushless);
-    //private static DoubleSolenoid Brake = new DoubleSolenoid(Constants.PhID, PneumaticsModuleType.REVPH, ArmConstants.BrakeID0, ArmConstants.BrakeID1);
-    //public static AbsoluteEncoder ArmEncoder = Arm_Motor.getAbsoluteEncoder(Type.kDutyCycle);
+    private static DoubleSolenoid Brake = new DoubleSolenoid(Constants.PhID, PneumaticsModuleType.REVPH, ArmConstants.BrakeID0, ArmConstants.BrakeID1);
+    public static AbsoluteEncoder ArmEncoder = Arm_Motor.getAbsoluteEncoder();
     private static final SparkMaxAlternateEncoder.Type kAltEncType = SparkMaxAlternateEncoder.Type.kQuadrature;
     private static final int kCPR = 8192;
 
@@ -34,7 +36,6 @@ public class Arm extends SubsystemBase {
 
     public Arm() {
         Arm_MotorL.setInverted(true);
-        Arm_MotorL.follow(Arm_Motor);
         //ArmEncoder = Arm_Motor.getAlternateEncoder(kAltEncType, kCPR);
         Constants.ArmAngleAtDis.put(4.0, 1.0);
         Constants.ArmAngleAtDis.put(4.5, 2.0);
@@ -55,22 +56,37 @@ public class Arm extends SubsystemBase {
     }
 
     public static void RaiseArm(){
-        Arm_Motor.set(0.5);
+        if (ArmEncoder.getPosition() < 96){
+             Arm_Motor.set(0.3);
+            Arm_MotorL.set(-0.3);
+        }else {
+            Arm_Motor.set(0);
+            Arm_MotorL.set(-0);
+        }
     } 
 
     public static void LowerArm(){
-        Arm_Motor.set(-0.5);
-    }
-
-    public static boolean ArmToPoint(double pos){
-        /*speed = 0.1 * (pos - ArmEncoder.getPosition());
-        if ((pos - ArmEncoder.getPosition()) > 0.1 || (pos - ArmEncoder.getPosition()) < 0.1){
-            Arm_Motor.set(speed);
+        if (ArmEncoder.getPosition() > 18){
+            Arm_Motor.set(-0.2);
+            Arm_MotorL.set(0.2);
         }else{
             Arm_Motor.set(0);
-            return true;
-        }*/
-        return false;
+            Arm_MotorL.set(0);
+        }
+    }
+
+
+    public static void ArmToPoint(double pos){
+        if ((pos - ArmEncoder.getPosition()) > 5){
+            Arm_Motor.set(0.2);
+            Arm_MotorL.set(-0.2);
+        }else if((pos - ArmEncoder.getPosition()) < -5){
+            Arm_Motor.set(-0.2);
+            Arm_MotorL.set(0.2);
+        }else{
+            Arm_Motor.set(0);
+            Arm_MotorL.set(0);
+        }
     }
 
     public static void LockArm(){
@@ -83,6 +99,8 @@ public class Arm extends SubsystemBase {
 
     public static void StopArm(){
         Arm_Motor.set(0);
+        Arm_MotorL.set(0);
+
     }
 
     /*public static double GetArmPos(){

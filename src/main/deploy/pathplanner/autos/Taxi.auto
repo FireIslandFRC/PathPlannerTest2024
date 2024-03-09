@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2,
-      "y": 7.0
+      "x": 0.38270214307649647,
+      "y": 7.429315761244349
     },
     "rotation": 0
   },
@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Path"
+            "pathName": "Taxi"
           }
         }
       ]

@@ -14,7 +14,7 @@ public class RaiseArm extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Arm.UnLockArm();
+    //Arm.UnLockArm();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -28,7 +28,6 @@ public class RaiseArm extends Command {
   public void end(boolean interrupted) {
     Arm.StopArm();
     Arm.LockArm();
-    done = true;
   }
 
   // Returns true when the command should end.

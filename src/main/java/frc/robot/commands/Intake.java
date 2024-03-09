@@ -20,33 +20,26 @@ public class Intake extends Command {
   @Override
   public void initialize() {
     PickUpTimer.reset();
-    Hand.Intake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Hand.IntakeLimit()){
-        PickUpTimer.start();
-    }
-    if (PickUpTimer.get() > 0.5){
-      Hand.StopIntake();
-      done = true;
-    }
+    Hand.Intake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     Hand.StopIntake();
-    Hand.IdleShoot();
+    //Hand.IdleShoot();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    Hand.StopIntake();
-    Hand.IdleShoot();
+    ////Hand.StopIntake();
+    //Hand.IdleShoot();
     return done;
   }
 

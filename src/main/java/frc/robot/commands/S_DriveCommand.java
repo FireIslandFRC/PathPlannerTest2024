@@ -71,6 +71,9 @@ public class S_DriveCommand extends Command {
     }
 
     swerveSubs.setModuleStates(states);
+    SmartDashboard.putNumber("XSpeed", xSpeed);
+    SmartDashboard.putNumber("ySpeed", ySpeed);
+    SmartDashboard.putNumber("zSpeed", zSpeed);
   }
 
   // Called once the command ends or is interrupted.

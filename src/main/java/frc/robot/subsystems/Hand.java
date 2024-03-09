@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HandConstants;
 
 public class Hand extends SubsystemBase {
-  private static CANSparkMax TopShooter = new CANSparkMax(HandConstants.TopShooterID, MotorType.kBrushless);
-  private static CANSparkMax BottonShooter = new CANSparkMax(HandConstants.BottomShooterID, MotorType.kBrushless);
+  private static CANSparkMax TopShooter = new CANSparkMax(HandConstants.BottomShooterID, MotorType.kBrushless);
+  private static CANSparkMax BottonShooter = new CANSparkMax(HandConstants.TopShooterID, MotorType.kBrushless);
   private static CANSparkMax Intake = new CANSparkMax(HandConstants.IntakeID, MotorType.kBrushless);
   public static DigitalInput HandLimitSwitch = new DigitalInput(0);
 
@@ -18,10 +18,12 @@ public class Hand extends SubsystemBase {
     BottonShooter.setInverted(false);
     TopShooter.setInverted(false);
     BottonShooter.follow(TopShooter);
+    Intake.setInverted(true);
   }
 
   public static void ShootAtSpeed(double speed){
     TopShooter.set(speed);
+    BottonShooter.set(speed);
   }
 
   public static void IdleShoot(){
@@ -29,19 +31,25 @@ public class Hand extends SubsystemBase {
     }
 
   public static void Intake(){
-    Intake.set(0.5);
+    Intake.set(-0.5);
   }
 
   public static void ReverseIntake(){
-    Intake.set(-0.5);
+    Intake.set(0.4);
+    TopShooter.set(-0.4);
+    BottonShooter.set(-0.4);
   }
 
   public static void StopShooter(){
     TopShooter.set(0);
+    BottonShooter.set(0);
+
   }
 
   public static void StopIntake(){
     Intake.set(0);
+    TopShooter.set(0);
+  BottonShooter.set(0);
   }
 
   public static void StopHand(){

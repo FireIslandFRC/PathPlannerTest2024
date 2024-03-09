@@ -26,27 +26,18 @@ public class Shoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RevTime.get() < 0.5){
-        Hand.ShootAtSpeed(1);
-    }else if(RevTime.get() > 1)   {
-        done = true;
-    }else{
-        Hand.Intake();
-    }
+    Hand.ShootAtSpeed(0.8);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Hand.StopIntake();
-    Hand.IdleShoot();
+    Hand.StopShooter();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    Hand.StopIntake();
-    Hand.IdleShoot();
     return done;
   }
 

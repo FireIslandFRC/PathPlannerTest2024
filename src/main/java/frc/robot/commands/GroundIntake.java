@@ -16,16 +16,12 @@ public class GroundIntake extends Command {
   @Override
   public void initialize() {
     Arm.UnLockArm();
-    Hand.IntakeUntilSwitch();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Arm.ArmToPoint(0);
-    if (Arm.ArmToPoint(0)){
-      done = true;
-    }
+    Arm.ArmToPoint(10);
   }
 
   // Called once the command ends or is interrupted.
@@ -39,8 +35,6 @@ public class GroundIntake extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    Arm.StopArm();
-    Arm.LockArm();
     return done;
   }
 
