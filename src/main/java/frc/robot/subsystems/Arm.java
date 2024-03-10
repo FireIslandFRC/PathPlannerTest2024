@@ -56,9 +56,10 @@ public class Arm extends SubsystemBase {
     }
 
     public static void RaiseArm(){
-        if (ArmEncoder.getPosition() < 96){
-             Arm_Motor.set(0.3);
-            Arm_MotorL.set(-0.3);
+        if (ArmEncoder.getPosition() < 110){
+             Arm_Motor.set(0.5
+             );
+            Arm_MotorL.set(-0.35);
         }else {
             Arm_Motor.set(0);
             Arm_MotorL.set(-0);
@@ -66,7 +67,8 @@ public class Arm extends SubsystemBase {
     } 
 
     public static void LowerArm(){
-        if (ArmEncoder.getPosition() > 18){
+        if (ArmEncoder.getPosition() > 14
+        ){
             Arm_Motor.set(-0.2);
             Arm_MotorL.set(0.2);
         }else{
@@ -77,12 +79,9 @@ public class Arm extends SubsystemBase {
 
 
     public static void ArmToPoint(double pos){
-        if ((pos - ArmEncoder.getPosition()) > 5){
-            Arm_Motor.set(0.2);
-            Arm_MotorL.set(-0.2);
-        }else if((pos - ArmEncoder.getPosition()) < -5){
-            Arm_Motor.set(-0.2);
-            Arm_MotorL.set(0.2);
+        if ( ArmEncoder.getPosition() < 70){
+            Arm_Motor.set(0.35);
+            Arm_MotorL.set(-0.35);
         }else{
             Arm_Motor.set(0);
             Arm_MotorL.set(0);

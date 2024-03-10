@@ -77,8 +77,8 @@ public class RobotContainer extends SubsystemBase{
     LowerArm.whileTrue(new LowerArm());
     resetPigeonButton.onTrue(new InstantCommand(() -> swerveSubs.resetPigeon()));
     resetPosButton.onTrue(new InstantCommand(() -> swerveSubs.resetOdometry()));
-    Intake.whileTrue(new Intake());
     Intake2.whileTrue(new Intake());
+    Intake.whileTrue(new GroundIntake());
     Shoot.whileTrue(new Shoot());
     Outtake.whileTrue(new ReverseIntake());
     //Ground.whileTrue(new GroundIntake());

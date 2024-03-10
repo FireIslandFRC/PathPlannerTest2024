@@ -22,14 +22,14 @@ public class GroundIntake extends Command {
   @Override
   public void execute() {
     Arm.ArmToPoint(10);
+    Hand.Intake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     Arm.StopArm();
-    Arm.LockArm();
-    done = true;
+    Hand.StopHand();
   }
 
   // Returns true when the command should end.

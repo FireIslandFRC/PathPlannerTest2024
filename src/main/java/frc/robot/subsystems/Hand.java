@@ -35,9 +35,11 @@ public class Hand extends SubsystemBase {
   }
 
   public static void ReverseIntake(){
-    Intake.set(0.4);
-    TopShooter.set(-0.4);
-    BottonShooter.set(-0.4);
+    Intake.set(0.3
+    );
+    TopShooter.set(-0.2
+    );
+    BottonShooter.set(-0.2);
   }
 
   public static void StopShooter(){
