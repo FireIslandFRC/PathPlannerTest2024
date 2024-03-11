@@ -19,6 +19,7 @@ import frc.robot.Constants.SwerveConstants.AutonomousConstants;
 import frc.robot.LimelightHelpers;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.pathplanner.lib.path.PathConstraints;
 
@@ -35,7 +36,7 @@ public class SwerveSubsystem extends SubsystemBase {
   public Pigeon2 pigeon = new Pigeon2(30); 
 
   //field2d
-  //public Field2d m_field;
+  public Field2d m_field;
 
   private SwerveDrivePoseEstimator m_poseEstimator;
 
@@ -64,9 +65,8 @@ public class SwerveSubsystem extends SubsystemBase {
     };
 
     //field2d on SD
-    /*m_field = new Field2d();
+    m_field = new Field2d();
     SmartDashboard.putData(m_field);
-    m_field.setRobotPose(getPose());*/
 
     //instantiate pigeon 
 
@@ -86,6 +86,9 @@ public class SwerveSubsystem extends SubsystemBase {
           new Pose2d(),
           VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
           VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));
+
+    m_field.setRobotPose(getPose());
+
 
     AutoBuilder.configureHolonomic(
       this::getPose, 
@@ -128,16 +131,16 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public Pose2d getPose() {
-    return odometer.getPoseMeters();
+    return m_poseEstimator.getEstimatedPosition();
   }
 
   // FIXME i dont think this works as intended,, resetPosition should reset everything to 0 
   public void setPose(Pose2d pose) {
-    odometer.resetPosition(getRotation2d(), getModulePositions(), pose);
+    m_poseEstimator.resetPosition(getRotation2d(), getModulePositions(), pose);
   }
 
   public void resetOdometry() {
-    odometer.resetPosition(getRotation2d(), getModulePositions(), new Pose2d());
+    m_poseEstimator.resetPosition(getRotation2d(), getModulePositions(), new Pose2d());
   }
 
   public ChassisSpeeds getRobotRelativeSpeeds() {
@@ -236,7 +239,7 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-    if(limelightMeasurement.tagCount >= 2)
+    if(limelightMeasurement.tagCount >= 1)
     {
       m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
       m_poseEstimator.addVisionMeasurement(
@@ -248,6 +251,6 @@ public class SwerveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Pigeon", pigeon.getYaw().getValueAsDouble());
     /*SmartDashboard.putString("POSE INFO", m_poseEstimator.toString());*/
     SmartDashboard.putString("WORKING DIR", System.getProperty("user.dir"));
-    
+    m_field.setRobotPose(getPose());
   }
 }
