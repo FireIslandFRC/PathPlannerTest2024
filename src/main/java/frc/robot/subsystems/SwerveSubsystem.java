@@ -43,13 +43,15 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public SwerveSubsystem() {
 
-    /*m_poseEstimator = new SwerveDrivePoseEstimator(
+    var ModulePositions = getModulePositions();
+
+    m_poseEstimator = new SwerveDrivePoseEstimator(
           SwerveConstants.DRIVE_KINEMATICS,
           pigeon.getRotation2d(),
-          getModulePositions(),
+          ModulePositions,
           new Pose2d(),
           VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
-          VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));*/
+          VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));
 
     
     pigeon.reset();
@@ -215,9 +217,9 @@ public class SwerveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    /*m_poseEstimator.update(
+    m_poseEstimator.update(
         pigeon.getRotation2d(),
-        getModulePositions());*/
+        getModulePositions());
     // This method will be called once per scheduler run
     odometer.update(pigeon.getRotation2d(), getModulePositions());
     
@@ -225,19 +227,19 @@ public class SwerveSubsystem extends SubsystemBase {
       swerveMod.print();
     }
 
-    /*LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+    LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
     if(limelightMeasurement.tagCount >= 2)
     {
       m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
       m_poseEstimator.addVisionMeasurement(
           limelightMeasurement.pose,
-          limelightMeasurement.timestampSeconds-3);
-    }*/
+          limelightMeasurement.timestampSeconds - 3);
+    }
 
 
     SmartDashboard.putNumber("Pigeon", pigeon.getYaw().getValueAsDouble());
-    //SmartDashboard.putString("POSE INFO", m_poseEstimator.toString());
-    // SmartDashboard.putString("WORKING DIR", System.getProperty("user.dir"));
+    SmartDashboard.putString("POSE INFO", m_poseEstimator.toString());
+    SmartDashboard.putString("WORKING DIR", System.getProperty("user.dir"));
     
   }
 }
