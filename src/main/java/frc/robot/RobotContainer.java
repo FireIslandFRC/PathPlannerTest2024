@@ -6,6 +6,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -24,7 +25,8 @@ public class RobotContainer extends SubsystemBase{
   private final SwerveSubsystem swerveSubs = new SwerveSubsystem(); 
 
   //CONTROLLERS  
-  private final XboxController xbox = new XboxController(ControllerConstants.kDriverControllerPort);
+  private final Joystick drive = new Joystick(0);
+  private final XboxController xbox = new XboxController(1);
 
   //DRIVE BUTTONS 
   private final JoystickButton resetPigeonButton = new JoystickButton(xbox, XboxController.Button.kA.value); 
@@ -49,9 +51,9 @@ public class RobotContainer extends SubsystemBase{
     swerveSubs.setDefaultCommand(
       new S_DriveCommand(
         swerveSubs,
-        () -> -xbox.getLeftY(),
-        () -> -xbox.getLeftX(),
-        () -> -xbox.getRightX(),
+        () -> -drive.getY(),
+        () -> -drive.getX(),
+        () -> -drive.getTwist(),
         true
       )
     );
