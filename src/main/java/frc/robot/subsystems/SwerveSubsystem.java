@@ -43,15 +43,15 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public SwerveSubsystem() {
 
-    var ModulePositions = getModulePositions();
+    //var ModulePositions = getModulePositions();
 
-    m_poseEstimator = new SwerveDrivePoseEstimator(
+    /*m_poseEstimator = new SwerveDrivePoseEstimator(
           SwerveConstants.DRIVE_KINEMATICS,
           pigeon.getRotation2d(),
           ModulePositions,
           new Pose2d(),
           VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
-          VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));
+          VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));*/
 
     
     pigeon.reset();
@@ -78,6 +78,14 @@ public class SwerveSubsystem extends SubsystemBase {
       pigeon.getRotation2d(), 
       getModulePositions()
     );
+
+    m_poseEstimator = new SwerveDrivePoseEstimator(
+          SwerveConstants.DRIVE_KINEMATICS,
+          pigeon.getRotation2d(),
+          getModulePositions(),
+          new Pose2d(),
+          VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
+          VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));
 
     AutoBuilder.configureHolonomic(
       this::getPose, 
@@ -238,7 +246,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
 
     SmartDashboard.putNumber("Pigeon", pigeon.getYaw().getValueAsDouble());
-    SmartDashboard.putString("POSE INFO", m_poseEstimator.toString());
+    /*SmartDashboard.putString("POSE INFO", m_poseEstimator.toString());*/
     SmartDashboard.putString("WORKING DIR", System.getProperty("user.dir"));
     
   }
