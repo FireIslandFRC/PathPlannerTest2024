@@ -22,6 +22,7 @@ import frc.robot.commands.RaiseArm;
 import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.S_DriveCommand;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.SourceIntake;
 
 public class RobotContainer extends SubsystemBase{
   //SUBSYSTEMS 
@@ -34,8 +35,9 @@ public class RobotContainer extends SubsystemBase{
     //private final XboxController drive = new XboxController(0);
 
   //DRIVE BUTTONS 
-  private final JoystickButton resetPigeonButton = new JoystickButton(drive, 1);
-  private final JoystickButton resetPosButton = new JoystickButton(drive, 2);
+  private final JoystickButton speedButton = new JoystickButton(drive, 1);
+  private final JoystickButton resetPigeonButton = new JoystickButton(drive, 2);
+  private final JoystickButton resetPosButton = new JoystickButton(drive, 3);
   private final JoystickButton RaiseArm = new JoystickButton(xbox, XboxController.Button.kA.value);
   private final JoystickButton LowerArm = new JoystickButton(xbox, XboxController.Button.kB.value);
   private final JoystickButton Intake = new JoystickButton(xbox, XboxController.Button.kRightBumper.value);
@@ -55,7 +57,8 @@ public class RobotContainer extends SubsystemBase{
         () -> -drive.getY(),
         () -> -drive.getX(),
         () -> -drive.getTwist(),
-        true
+        true,
+        speedButton.getAsBoolean()
       )
     );
 
@@ -78,7 +81,7 @@ public class RobotContainer extends SubsystemBase{
     resetPigeonButton.onTrue(new InstantCommand(() -> swerveSubs.resetPigeon()));
     resetPosButton.onTrue(new InstantCommand(() -> swerveSubs.resetOdometry()));
     Intake2.whileTrue(new Intake());
-    Intake.whileTrue(new GroundIntake());
+    Intake.whileTrue(new SourceIntake());
     Shoot.whileTrue(new Shoot());
     Outtake.whileTrue(new ReverseIntake());
     //Ground.whileTrue(new GroundIntake());

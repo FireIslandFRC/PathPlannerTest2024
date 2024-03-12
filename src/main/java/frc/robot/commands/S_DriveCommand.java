@@ -12,7 +12,8 @@ public class S_DriveCommand extends Command {
   private SwerveSubsystem swerveSubs; 
 
   private DoubleSupplier xSupplier, ySupplier, zSupplier; 
-  private boolean fieldOriented;
+  private boolean fieldOriented, speedIncrease;
+  private double SpeedMultiplier;
 
   /* * * CONSTRUCTOR * * */
   /* 
@@ -22,12 +23,13 @@ public class S_DriveCommand extends Command {
    * @param zSupplier value input for rotation 
    * @param fieldOriented whether or not we want the bot to run in field oriented 
    */
-  public S_DriveCommand(SwerveSubsystem swerveSubs, DoubleSupplier xSupplier, DoubleSupplier ySupplier, DoubleSupplier zSupplier, boolean fieldOriented) {
+  public S_DriveCommand(SwerveSubsystem swerveSubs, DoubleSupplier xSupplier, DoubleSupplier ySupplier, DoubleSupplier zSupplier, boolean fieldOriented, boolean speedIncrease) {
     this.swerveSubs = swerveSubs; 
     this.xSupplier = xSupplier; 
     this.ySupplier = ySupplier; 
     this.zSupplier = zSupplier; 
-    this.fieldOriented = fieldOriented; 
+    this.fieldOriented = fieldOriented;
+    this.speedIncrease = speedIncrease;
     addRequirements(swerveSubs);
   }
 
@@ -59,10 +61,16 @@ public class S_DriveCommand extends Command {
     ySpeed = modifyAxis(ySpeed); 
     zSpeed = modifyAxis(zSpeed); 
 
+    if (speedIncrease) {
+      SpeedMultiplier = 2;
+    }else{
+      SpeedMultiplier = 1;
+    }
+
     /* * * SETTING SWERVE STATES * * */ 
     if (fieldOriented) {
       states = SwerveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
-        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zSpeed, swerveSubs.getRotation2d())
+        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed * SpeedMultiplier, ySpeed * SpeedMultiplier, zSpeed, swerveSubs.getRotation2d())
       );
     } else {
       states = SwerveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(

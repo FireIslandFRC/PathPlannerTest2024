@@ -79,7 +79,7 @@ public class Arm extends SubsystemBase {
 
 
     public static void ArmToPoint(double pos){
-        if ( ArmEncoder.getPosition() < 70){
+        if ( ArmEncoder.getPosition() < pos){
             Arm_Motor.set(0.35);
             Arm_MotorL.set(-0.35);
         }else{
