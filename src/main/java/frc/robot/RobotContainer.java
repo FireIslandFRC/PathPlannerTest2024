@@ -32,7 +32,8 @@ public class RobotContainer extends SubsystemBase{
   private final XboxController xbox = new XboxController(1);
 
   //DRIVE BUTTONS 
-  private final JoystickButton resetPigeonButton = new JoystickButton(drive, 1); 
+  private final JoystickButton resetPigeonButton = new JoystickButton(drive, 2); 
+  private final JoystickButton speedButton = new JoystickButton(drive, 1); 
   private final JoystickButton resetPosButton = new JoystickButton(xbox, XboxController.Button.kB.value);
   private final JoystickButton MoveToRandomPose = new JoystickButton(xbox, XboxController.Button.kX.value); 
 
@@ -57,7 +58,8 @@ public class RobotContainer extends SubsystemBase{
         () -> -drive.getY(),
         () -> -drive.getX(),
         () -> (-drive.getTwist()) - 0.1,
-        true
+        true,
+        () -> speedButton.getAsBoolean()
       )
     );
 

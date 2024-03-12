@@ -140,8 +140,8 @@ public final class Constants {
 
     public static class AutonomousConstants {
       public static final HolonomicPathFollowerConfig HOLONOMIC_PATH_FOLLOWER_CONFIG = new HolonomicPathFollowerConfig(
-        new PIDConstants(1.6,0, 0.35), //FIXME translation PID constants
-        new PIDConstants(1,0.25, 0.3), //FIXME rotation PID constants
+        new PIDConstants(5,0, 0), //FIXME translation PID constants
+        new PIDConstants(3,0, 0), //FIXME rotation PID constants
         3, //FIXME max module speed in m/s 
         (Math.hypot(WHEEL_BASE, TRACK_WIDTH)) / 2, //FIXME drive base radius in meters. dist from robot center to furthest module 
         new ReplanningConfig() //default path replanning config 

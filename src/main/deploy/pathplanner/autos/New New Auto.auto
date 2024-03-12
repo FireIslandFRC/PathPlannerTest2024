@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2,
-      "y": 7.0
+      "x": 0.6614680355006138,
+      "y": 6.598522250400783
     },
-    "rotation": 0
+    "rotation": 60.642246457208714
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Path"
+            "pathName": "Path Pt1"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Path Pt2"
           }
         }
       ]

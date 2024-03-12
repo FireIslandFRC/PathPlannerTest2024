@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -12,7 +13,9 @@ public class S_DriveCommand extends Command {
   private SwerveSubsystem swerveSubs; 
 
   private DoubleSupplier xSupplier, ySupplier, zSupplier; 
-  private boolean fieldOriented; 
+  private boolean fieldOriented;
+  private BooleanSupplier speedButton; 
+  private double speedMultiplyer;
 
   /* * * CONSTRUCTOR * * */
   /* 
@@ -22,12 +25,13 @@ public class S_DriveCommand extends Command {
    * @param zSupplier value input for rotation 
    * @param fieldOriented whether or not we want the bot to run in field oriented 
    */
-  public S_DriveCommand(SwerveSubsystem swerveSubs, DoubleSupplier xSupplier, DoubleSupplier ySupplier, DoubleSupplier zSupplier, boolean fieldOriented) {
+  public S_DriveCommand(SwerveSubsystem swerveSubs, DoubleSupplier xSupplier, DoubleSupplier ySupplier, DoubleSupplier zSupplier, boolean fieldOriented, BooleanSupplier speedButton) {
     this.swerveSubs = swerveSubs; 
     this.xSupplier = xSupplier; 
     this.ySupplier = ySupplier; 
     this.zSupplier = zSupplier; 
     this.fieldOriented = fieldOriented; 
+    this.speedButton = speedButton;
     addRequirements(swerveSubs);
   }
 
@@ -56,13 +60,18 @@ public class S_DriveCommand extends Command {
 
     //square the speed values to make for smoother acceleration 
     xSpeed = modifyAxis(xSpeed); 
-    ySpeed = modifyAxis(ySpeed); 
-    zSpeed = modifyAxis(zSpeed); 
+    ySpeed = modifyAxis(ySpeed);  
+
+    if(speedButton.getAsBoolean()){
+      speedMultiplyer = 1;
+    }else{
+      speedMultiplyer = 0.1;
+    }
 
     /* * * SETTING SWERVE STATES * * */ 
     if (fieldOriented) {
       states = SwerveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
-        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zSpeed, swerveSubs.getRotation2d())
+        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed * speedMultiplyer, ySpeed * speedMultiplyer, zSpeed * 0.7, swerveSubs.getRotation2d())
       );
     } else {
       states = SwerveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
