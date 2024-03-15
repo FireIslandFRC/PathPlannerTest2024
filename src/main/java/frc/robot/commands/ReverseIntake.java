@@ -1,10 +1,7 @@
 package frc.robot.commands;
 
-import com.revrobotics.jni.RevJNIWrapper;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Hand;
 
 public class ReverseIntake extends Command {

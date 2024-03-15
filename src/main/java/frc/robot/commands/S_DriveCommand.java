@@ -1,20 +1,18 @@
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.SwerveConstants;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class S_DriveCommand extends Command {
   private SwerveSubsystem swerveSubs; 
 
   private DoubleSupplier xSupplier, ySupplier, zSupplier; 
-  private boolean fieldOriented, speedIncrease;
+  private boolean fieldOriented;
   private double SpeedMultiplier;
-
+  private BooleanSupplier speedIncrease;
   /* * * CONSTRUCTOR * * */
   /* 
    * @param swerveSubs the swerve subsystem 
@@ -23,7 +21,7 @@ public class S_DriveCommand extends Command {
    * @param zSupplier value input for rotation 
    * @param fieldOriented whether or not we want the bot to run in field oriented 
    */
-  public S_DriveCommand(SwerveSubsystem swerveSubs, DoubleSupplier xSupplier, DoubleSupplier ySupplier, DoubleSupplier zSupplier, boolean fieldOriented, boolean speedIncrease) {
+  public S_DriveCommand(SwerveSubsystem swerveSubs, DoubleSupplier xSupplier, DoubleSupplier ySupplier, DoubleSupplier zSupplier, boolean fieldOriented, BooleanSupplier speedIncrease) {
     this.swerveSubs = swerveSubs; 
     this.xSupplier = xSupplier; 
     this.ySupplier = ySupplier; 
@@ -41,7 +39,6 @@ public class S_DriveCommand extends Command {
   @Override
   public void execute() {
 
-    SwerveModuleState[] states; 
     /* * * ALTERING VALUES * *   */
     //Joystick values -> double 
     double xSpeed = xSupplier.getAsDouble(); 
@@ -61,27 +58,15 @@ public class S_DriveCommand extends Command {
     ySpeed = modifyAxis(ySpeed); 
     zSpeed = modifyAxis(zSpeed); 
 
-    if (speedIncrease) {
+    if (speedIncrease.getAsBoolean()) {
       SpeedMultiplier = 2;
     }else{
       SpeedMultiplier = 1;
     }
 
-    /* * * SETTING SWERVE STATES * * */ 
-    if (fieldOriented) {
-      states = SwerveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
-        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed * SpeedMultiplier, ySpeed * SpeedMultiplier, zSpeed, swerveSubs.getRotation2d())
-      );
-    } else {
-      states = SwerveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
-        new ChassisSpeeds(xSpeed, ySpeed, zSpeed)
-      );
-    }
-
-    swerveSubs.setModuleStates(states);
-    SmartDashboard.putNumber("XSpeed", xSpeed);
-    SmartDashboard.putNumber("ySpeed", ySpeed);
-    SmartDashboard.putNumber("zSpeed", zSpeed);
+    /* * * SETTING SWERVE STATES * * */
+    swerveSubs.drive(xSpeed, ySpeed, zSpeed, fieldOriented, SpeedMultiplier);
+    
   }
 
   // Called once the command ends or is interrupted.

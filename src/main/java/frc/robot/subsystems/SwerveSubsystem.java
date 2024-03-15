@@ -191,6 +191,22 @@ public class SwerveSubsystem extends SubsystemBase {
     return positions;
   }
 
+  public void drive(double xSpeed, double ySpeed, double zSpeed, boolean fieldOriented, double SpeedMultiplier){
+    SwerveModuleState[] states;
+    if (fieldOriented) {
+      states = SwerveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
+        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed * SpeedMultiplier, ySpeed * SpeedMultiplier, zSpeed, getRotation2d())
+      );
+    } else {
+      states = SwerveConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
+        new ChassisSpeeds(xSpeed, ySpeed, zSpeed)
+      );
+    }
+
+    setModuleStates(states);   
+
+  }
+
   //LOCK 
   public void lock() {
     SwerveModuleState[] states = new SwerveModuleState[4];

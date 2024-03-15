@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import java.util.HashMap;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -25,7 +24,6 @@ public class Constants {
 
   public static final int PhID = 15;
 
-  public static HashMap<Double, Double> ArmAngleAtDis = new HashMap<Double, Double>();
 
 
   public static class ArmConstants {
@@ -105,7 +103,7 @@ public class Constants {
       public static final int DRIVE_PORT = 1;
       public static final int ROTATION_PORT = 2;
       public static final int ABSOLUTE_ENCODER_PORT = 21;
-      public static final double OFFSET = 22.5 + 62;
+      public static final double OFFSET = 22.5 + 62 - 25; //Set 3-13.   Of by -25
       public static final boolean DRIVE_INVERTED = false; 
       public static final boolean ROTATION_INVERTED = true; 
 
