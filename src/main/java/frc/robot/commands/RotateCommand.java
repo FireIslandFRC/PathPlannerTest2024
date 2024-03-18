@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -8,10 +10,13 @@ public class RotateCommand extends Command {
   private SwerveSubsystem swerveSubs; 
   private PIDController rotationPID; 
   private double angle;
+  private DoubleSupplier x, y;
 
-  public RotateCommand(SwerveSubsystem swerveSubs, double angle) {
+  public RotateCommand(SwerveSubsystem swerveSubs, double angle, DoubleSupplier x, DoubleSupplier y) {
     this.swerveSubs = swerveSubs; 
     this.angle = angle; 
+    this.x = x;
+    this.y = y;
     rotationPID = new PIDController(0.01, 0, 0);
 
     addRequirements(swerveSubs);
@@ -28,7 +33,7 @@ public class RotateCommand extends Command {
 
     rotationSpeed = rotationPID.calculate(swerveSubs.getRotation2d().getDegrees(), angle);
 
-    swerveSubs.drive(0, 0, rotationSpeed, true, 1);
+    swerveSubs.drive(-x.getAsDouble(), -y.getAsDouble(), rotationSpeed, true, 0.6);
 
   }
 

@@ -18,19 +18,19 @@ public class Climber extends SubsystemBase {
   }
 
   public static void RaiseClimberLeft(){
-    ClimberLeft.set(1);
+    ClimberLeft.set(0.5);
   }
 
   public static void LowerClimberLeft(){
-    ClimberLeft.set(-1);
+    ClimberLeft.set(-0.5);
   }
 
   public static void RaiseClimberRight(){
-    ClimberRight.set(1);
+    ClimberRight.set(-0.5);
   }
 
   public static void LowerClimberRight(){
-    ClimberRight.set(-1);
+    ClimberRight.set(0.5);
   }
 
   public static void Lock(){

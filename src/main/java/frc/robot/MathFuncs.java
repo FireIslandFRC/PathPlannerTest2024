@@ -38,4 +38,9 @@ public class MathFuncs {
         return WantedAngle;
     }
     
+    public double AprilTagDistance(){
+        double[] PoseFinder = LimelightHelpers.getCameraPose_TargetSpace("limelight");
+        double distance = PoseFinder[2];
+        return distance;
+    }
 }

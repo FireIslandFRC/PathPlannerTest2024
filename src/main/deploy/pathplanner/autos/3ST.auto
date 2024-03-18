@@ -20,18 +20,24 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootAuto"
+            "name": "ShootAtDistanceAuto"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LowerArm"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "CenterShoot"
+            "pathName": "CenterTaxi"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "3",
   "choreoAuto": false
 }

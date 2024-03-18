@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "LowerArm"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootAtDistanceAuto"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LowerArm"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CenterTaxi"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootAtDistanceAuto"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BackToCenter"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "3",
+  "choreoAuto": false
+}

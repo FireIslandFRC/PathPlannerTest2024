@@ -14,32 +14,28 @@ public class ShootAtDistance extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Arm.ArmToDistance();
+    Arm.ArmToDistance(4);
     Hand.ShootAtSpeed(1);
-    if (Arm.ArmIsAtPoint()){
-      Hand.Intake();
-    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Hand.StopHand();
+    Hand.StopIntake();
+    Arm.StopArm();
 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Arm.ArmIsAtPoint(4);
   }
-
-  public double deadzone(double num){
-    return Math.abs(num) > 0.1 ? num : 0;
-}
 }

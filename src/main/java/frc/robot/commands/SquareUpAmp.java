@@ -30,11 +30,15 @@ public class SquareUpAmp extends Command {
   public void execute() {
     double StrafeSpeed, RotationSpeed;
 
-    StrafeSpeed = StrafePID.calculate(LimelightHelpers.getTX("limelight"), 0);
-    RotationSpeed = RotationPID.calculate(swerveSubs.getRotation2d().getDegrees(), 90);
-    //double[] PoseFinder = LimelightHelpers.getCameraPose_TargetSpace("limelight");
 
-    swerveSubs.drive(StrafeSpeed, yController.getAsDouble(), RotationSpeed, true, 1);
+    if( LimelightHelpers.getTV("limelight") ){
+      StrafeSpeed = StrafePID.calculate(LimelightHelpers.getTX("limelight"), -12);
+    }else{
+      StrafeSpeed = 0;
+    }
+    RotationSpeed = RotationPID.calculate(swerveSubs.getRotation2d().getDegrees(), 90);
+
+    swerveSubs.drive(StrafeSpeed, -yController.getAsDouble() * 1.2, RotationSpeed, true, 1);
 
   }
 
@@ -52,5 +56,5 @@ public class SquareUpAmp extends Command {
 
   public double deadzone(double num){
     return Math.abs(num) > 0.1 ? num : 0;
-}
+  }
 }

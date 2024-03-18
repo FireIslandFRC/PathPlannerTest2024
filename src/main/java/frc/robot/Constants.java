@@ -103,7 +103,7 @@ public class Constants {
       public static final int DRIVE_PORT = 1;
       public static final int ROTATION_PORT = 2;
       public static final int ABSOLUTE_ENCODER_PORT = 21;
-      public static final double OFFSET = 22.5 + 62 - 25; //Set 3-13.   Of by -25
+      public static final double OFFSET = 22.5 + 62 - 25 + 38; //Set 3-13.   Of by -25
       public static final boolean DRIVE_INVERTED = false; 
       public static final boolean ROTATION_INVERTED = true; 
 
@@ -116,7 +116,7 @@ public class Constants {
       public static final int DRIVE_PORT = 3;
       public static final int ROTATION_PORT = 4;
       public static final int ABSOLUTE_ENCODER_PORT = 22;
-      public static final double OFFSET = 300 + 8;
+      public static final double OFFSET = 300 + 8 + 125;
       public static final boolean DRIVE_INVERTED = true; 
       public static final boolean ROTATION_INVERTED = true; 
 

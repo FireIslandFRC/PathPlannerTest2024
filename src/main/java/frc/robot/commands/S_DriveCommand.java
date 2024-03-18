@@ -54,12 +54,9 @@ public class S_DriveCommand extends Command {
     zSpeed = deadzone(zSpeed); 
 
     //square the speed values to make for smoother acceleration 
-    xSpeed = modifyAxis(xSpeed); 
-    ySpeed = modifyAxis(ySpeed); 
-    zSpeed = modifyAxis(zSpeed); 
 
     if (speedIncrease.getAsBoolean()) {
-      SpeedMultiplier = 2;
+      SpeedMultiplier = 0.50;
     }else{
       SpeedMultiplier = 1;
     }

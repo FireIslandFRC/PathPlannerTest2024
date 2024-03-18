@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Arm;
 
@@ -21,6 +22,7 @@ public class RaiseArm extends Command {
   @Override
   public void execute() {
     Arm.RaiseArm();
+    
   }
 
   // Called once the command ends or is interrupted.

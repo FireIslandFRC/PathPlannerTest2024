@@ -1,35 +1,37 @@
 package frc.robot.commands;
 
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Hand;
 
-public class GroundIntake extends Command {
+public class StopShoot extends Command {
 
     private boolean done = false;
+    private Timer RevTime = new Timer();
 
-  public GroundIntake() {
+  public StopShoot() {
     
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Arm.UnLockArm();
+    RevTime.reset();
+    RevTime.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Arm.ArmToPoint(10);
-    Hand.Intake();
+    Hand.ShootAtSpeed(-0.5);
+    done = true;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Arm.StopArm();
-    Hand.StopIntake();
+    Hand.StopShooter();
   }
 
   // Returns true when the command should end.

@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -15,9 +17,12 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  public static HashMap<Double, Double> ArmAngleAtDis ;
 
   //TODO: compressor
   //Compressor compressor = new Compressor(11, PneumaticsModuleType.REVPH);
@@ -31,6 +36,16 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    ArmAngleAtDis = new HashMap<Double, Double>();
+
+        ArmAngleAtDis.put(3.0, 3.0);
+        ArmAngleAtDis.put(4.0, 10.0);
+        ArmAngleAtDis.put(5.0, 14.0);
+        ArmAngleAtDis.put(6.0, 20.0);
+        ArmAngleAtDis.put(7.0, 25.0);
+        ArmAngleAtDis.put(8.0, 27.0);
+        ArmAngleAtDis.put(9.0, 29.5);
   }
 
   /**

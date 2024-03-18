@@ -21,7 +21,7 @@ public class SourceIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Arm.ArmToPoint(70);
+    Arm.ArmToPoint(65);
     Hand.Intake();
   }
 
@@ -29,7 +29,7 @@ public class SourceIntake extends Command {
   @Override
   public void end(boolean interrupted) {
     Arm.StopArm();
-    Hand.StopHand();
+    Hand.StopIntake();
   }
 
   // Returns true when the command should end.
@@ -37,5 +37,4 @@ public class SourceIntake extends Command {
   public boolean isFinished() {
     return done;
   }
-
 }

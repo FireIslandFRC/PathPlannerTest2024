@@ -30,6 +30,8 @@ public class Intake extends Command {
   @Override
   public void end(boolean interrupted) {
     Hand.StopIntake();
+    Hand.UnBuzz();
+
     //Hand.IdleShoot();
   }
 
