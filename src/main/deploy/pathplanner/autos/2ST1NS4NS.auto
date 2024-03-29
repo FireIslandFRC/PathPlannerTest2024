@@ -1,0 +1,109 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.606946582064187,
+      "y": 6.610336071028438
+    },
+    "rotation": 59.74356283647074
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "LowerArmFlywheel"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootAtDistanceAuto"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LowerArm"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2T1N"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "BumpOut"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RotateToSpeaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootAtN1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LowerArm"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1N4N"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "BumpOut"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4N1N"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RotateToSpeaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootAtN1"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "2",
+  "choreoAuto": false
+}

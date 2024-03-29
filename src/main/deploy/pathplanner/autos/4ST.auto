@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.272016237726169,
-      "y": 5.528332498106438
+      "x": 0.5191987581124822,
+      "y": 4.416640472235815
     },
-    "rotation": 0
+    "rotation": -60.94539590092292
   },
   "command": {
     "type": "sequential",
@@ -32,12 +32,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "3T2N"
+            "pathName": "4T3N"
           }
         }
       ]
     }
   },
-  "folder": "3",
+  "folder": "4",
   "choreoAuto": false
 }

@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 
+import java.util.function.BooleanSupplier;
+
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 
@@ -17,8 +19,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.Constants.SwerveConstants.AutonomousConstants;
 import frc.robot.LimelightHelpers;
+import frc.robot.Robot;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.BooleanSubscriber;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.pathplanner.lib.path.PathConstraints;
@@ -40,9 +45,24 @@ public class SwerveSubsystem extends SubsystemBase {
 
   private SwerveDrivePoseEstimator m_poseEstimator;
 
+  private BooleanSupplier IsRed;
+
   // private BooleanSupplier shouldFlipPath = () -> false;
 
   public SwerveSubsystem() {
+
+    if (Robot.ally.isPresent()){
+      if(Robot.ally.get() == Alliance.Red){
+        IsRed = () -> true;
+        System.out.println("IsRed");
+      }else if(Robot.ally.get() == Alliance.Blue){
+        IsRed = () -> false;
+        System.out.println("IsBlue");
+      }
+    }else{
+      IsRed = () -> false;
+      System.out.println("IsNull");
+    }
 
     //var ModulePositions = getModulePositions();
 
@@ -89,15 +109,14 @@ public class SwerveSubsystem extends SubsystemBase {
 
     m_field.setRobotPose(getPose());
 
-
     AutoBuilder.configureHolonomic(
       this::getPose, 
       this::setPose, 
       this::getRobotRelativeSpeeds, 
       this::driveRobotRelative, 
       AutonomousConstants.HOLONOMIC_PATH_FOLLOWER_CONFIG, 
-      () -> false, 
-      this //reference to this subsystem to set requirements 
+      () -> false,
+      this //reference to this subsystem to set requirements
       );
 
   }

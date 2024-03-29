@@ -4,7 +4,12 @@
   "holonomicMode": true,
   "pathFolders": [],
   "autoFolders": [
-    "3"
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6"
   ],
   "defaultMaxVel": 1.5,
   "defaultMaxAccel": 1.0,

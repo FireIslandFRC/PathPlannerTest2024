@@ -5,12 +5,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Hand;
 
-public class Shoot extends Command {
+public class ShootNoOff extends Command {
 
     private boolean done = false;
     private Timer RevTime = new Timer();
 
-  public Shoot() {
+  public ShootNoOff() {
     
   }
 
@@ -25,12 +25,12 @@ public class Shoot extends Command {
   @Override
   public void execute() {
     Hand.ShootAtSpeed(0.65);
+    done = true;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Hand.StopShooter();
   }
 
   // Returns true when the command should end.

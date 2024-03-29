@@ -5,12 +5,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Hand;
 
-public class Shoot extends Command {
+public class StopIntake extends Command {
 
     private boolean done = false;
     private Timer RevTime = new Timer();
 
-  public Shoot() {
+  public StopIntake() {
     
   }
 
@@ -24,7 +24,8 @@ public class Shoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Hand.ShootAtSpeed(0.65);
+    Hand.StopIntake();
+    done = true;
   }
 
   // Called once the command ends or is interrupted.
