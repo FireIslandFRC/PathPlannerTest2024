@@ -5,7 +5,10 @@
 package frc.robot;
 
 import java.util.HashMap;
+import java.util.Optional;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -18,11 +21,15 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
 
+
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
 
-  public static HashMap<Double, Double> ArmAngleAtDis ;
+  public static HashMap<Double, Double> ArmAngleAtDis;
+
+  public static Optional<Alliance> ally = DriverStation.getAlliance();
+
 
   //TODO: compressor
   //Compressor compressor = new Compressor(11, PneumaticsModuleType.REVPH);
@@ -37,15 +44,17 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
+    Optional<Alliance> ally = DriverStation.getAlliance();
+
     ArmAngleAtDis = new HashMap<Double, Double>();
 
-        ArmAngleAtDis.put(3.0, 3.0);
-        ArmAngleAtDis.put(4.0, 10.0);
-        ArmAngleAtDis.put(5.0, 14.0);
-        ArmAngleAtDis.put(6.0, 20.0);
-        ArmAngleAtDis.put(7.0, 25.0);
-        ArmAngleAtDis.put(8.0, 27.0);
-        ArmAngleAtDis.put(9.0, 29.5);
+    ArmAngleAtDis.put(3.0, 3.0);
+    ArmAngleAtDis.put(4.0, 10.0);
+    ArmAngleAtDis.put(5.0, 14.0);
+    ArmAngleAtDis.put(6.0, 20.0);
+    ArmAngleAtDis.put(7.0, 25.0);
+    ArmAngleAtDis.put(8.0, 27.0);
+    ArmAngleAtDis.put(9.0, 29.5);
   }
 
   /**
@@ -61,6 +70,8 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+    ally = DriverStation.getAlliance();
+
     CommandScheduler.getInstance().run();
   }
 

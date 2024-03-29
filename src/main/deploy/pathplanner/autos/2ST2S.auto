@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.272016237726169,
-      "y": 5.528332498106438
+      "x": 0.606946582064187,
+      "y": 6.610336071028438
     },
-    "rotation": 0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -32,12 +32,30 @@
         {
           "type": "path",
           "data": {
-            "pathName": "3T2N"
+            "pathName": "2T1N"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "BumpOut"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RotateToSpeaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootAtN1"
           }
         }
       ]
     }
   },
-  "folder": "3",
+  "folder": "2",
   "choreoAuto": false
 }

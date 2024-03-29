@@ -7,60 +7,52 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.LimelightHelpers;
 import frc.robot.Robot;
 import frc.robot.subsystems.SwerveSubsystem;
 
-public class SquareUpAmp extends Command {
+public class RotateSouce extends Command {
   private SwerveSubsystem swerveSubs; 
-  private PIDController StrafePID, RotationPID; 
-  private DoubleSupplier yController, xController;
-  private double setpoint;
+  private PIDController rotationPID; 
+  private DoubleSupplier x, y;
+  private double setpoint; 
+  
 
-  public SquareUpAmp(SwerveSubsystem swerveSubs, DoubleSupplier yController, DoubleSupplier xController) {
+  public RotateSouce(SwerveSubsystem swerveSubs, DoubleSupplier x, DoubleSupplier y) {
     this.swerveSubs = swerveSubs; 
-    this.yController = yController;
-    this.xController = xController;
-    RotationPID = new PIDController(0.005, 0, 0);
-    StrafePID = new PIDController(0.005, 0, 0);
+    this.x = x;
+    this.y = y;
+    rotationPID = new PIDController(0.01, 0, 0);
 
     addRequirements(swerveSubs);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double rotationSpeed;
+
     if (Robot.ally.isPresent()) {
       if (Robot.ally.get() == Alliance.Red) {
-          setpoint = 90;
+          setpoint = 60;
           System.out.println("Red");
       }
       if (Robot.ally.get() == Alliance.Blue) {
-          setpoint = 270;
+          setpoint = 300;
           System.out.println("Blue");
       }
-  }
-  else {
+    }
+    else {
       setpoint = 0;
       System.out.println("Null");
-     }
-    double StrafeSpeed, RotationSpeed;
+    }
 
+    rotationSpeed = rotationPID.calculate(swerveSubs.getRotation2d().getDegrees(), setpoint);
 
-    /*if( LimelightHelpers.getTV("limelight") ){
-      StrafeSpeed = StrafePID.calculate(LimelightHelpers.getTX("limelight"), -12);
-    }else{
-      StrafeSpeed = 0;
-    }*/
-    RotationSpeed = RotationPID.calculate(swerveSubs.getRotation2d().getDegrees(), setpoint);
-
-    swerveSubs.drive(-xController.getAsDouble(), -yController.getAsDouble(), RotationSpeed, true, 1);
+    swerveSubs.drive(-x.getAsDouble(), -y.getAsDouble(), rotationSpeed, true, 0.6);
 
   }
 
@@ -78,5 +70,5 @@ public class SquareUpAmp extends Command {
 
   public double deadzone(double num){
     return Math.abs(num) > 0.1 ? num : 0;
-  }
+}
 }

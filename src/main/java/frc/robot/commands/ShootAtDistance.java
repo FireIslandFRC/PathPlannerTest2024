@@ -21,8 +21,8 @@ public class ShootAtDistance extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Arm.ArmToDistance(4);
-    Hand.ShootAtSpeed(1);
+    Arm.ArmToDistance(2.2);
+    Hand.ShootAtSpeed(0.8);
   }
 
   // Called once the command ends or is interrupted.

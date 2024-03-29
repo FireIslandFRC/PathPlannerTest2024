@@ -40,7 +40,6 @@ public class Arm extends SubsystemBase {
         if (ArmEncoder.getPosition() < 100){
              Arm_Motor.set(0.5);
             Arm_MotorL.set(-0.35);
-            System.out.println(Robot.ArmAngleAtDis.get(4.0));
         }else {
             Arm_Motor.set(0);
             Arm_MotorL.set(-0);

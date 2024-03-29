@@ -5,32 +5,36 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Hand;
 
-public class Shoot extends Command {
+public class BumpOut extends Command {
 
-    private boolean done = false;
-    private Timer RevTime = new Timer();
+  private Timer bumpout = new Timer();
 
-  public Shoot() {
-    
+  private boolean done = false;
+
+  public BumpOut() {
+    bumpout.restart();
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RevTime.reset();
-    RevTime.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Hand.ShootAtSpeed(0.65);
+    Hand.ShootAtSpeed(0.9);
+    if(bumpout.get() < 0.7){
+      Hand.ReverseIntake();
+    }else{  
+      done = true;
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Hand.StopShooter();
+    Hand.StopIntake();
   }
 
   // Returns true when the command should end.
