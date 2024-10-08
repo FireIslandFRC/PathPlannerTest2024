@@ -30,9 +30,7 @@ public class Arm extends SubsystemBase {
 
     public Arm() {
         Arm_MotorL.setInverted(true);
-        //ArmEncoder = Arm_Motor.getAlternateEncoder(kAltEncType, kCPR);
         
-
         math = new MathFuncs();
     }
 
@@ -40,7 +38,7 @@ public class Arm extends SubsystemBase {
         if (ArmEncoder.getPosition() < 100){
              Arm_Motor.set(0.5);
             Arm_MotorL.set(-0.35);
-        }else {
+        }else{
             Arm_Motor.set(0);
             Arm_MotorL.set(-0);
         }

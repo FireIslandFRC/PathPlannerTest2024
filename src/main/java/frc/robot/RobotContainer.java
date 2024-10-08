@@ -59,7 +59,8 @@ public class RobotContainer extends SubsystemBase{
 
   //DRIVE BUTTONS 
   private final JoystickButton speedButton = new JoystickButton(drive, 1);
-  private final JoystickButton resetPigeonButton = new JoystickButton(drive, 2);
+  private final JoystickButton fieldOriented = new JoystickButton(drive, 2);
+  private final JoystickButton resetPigeonButton = new JoystickButton(drive, 3);
   //private final JoystickButton resetPosButton = new JoystickButton(drive, 3);
   private final JoystickButton Rotateright = new JoystickButton(drive, 4);
   private final JoystickButton SquareUpAmpButton = new JoystickButton(drive, 10);
@@ -88,7 +89,7 @@ public class RobotContainer extends SubsystemBase{
         () -> -drive.getY(),
         () -> -drive.getX(),
         () -> -drive.getTwist(),
-        true,
+        () -> fieldOriented.getAsBoolean(),
         () -> speedButton.getAsBoolean()
       )
     );
@@ -99,6 +100,7 @@ public class RobotContainer extends SubsystemBase{
 
     NamedCommands.registerCommand("LowerArmFlywheel", new LowerArmFlywheel());
     NamedCommands.registerCommand("LowerArm", new LowerArm());
+    NamedCommands.registerCommand("StartShoot", new ShootNoOff());
     NamedCommands.registerCommand("ShootAtDistanceAuto", new ShootAtDistanceAuto());
     NamedCommands.registerCommand("ShootAtN1", new ShootAtN1());
     NamedCommands.registerCommand("StopShooter", new StopShoot());

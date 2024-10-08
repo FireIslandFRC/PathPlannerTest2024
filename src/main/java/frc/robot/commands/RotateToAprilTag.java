@@ -1,7 +1,10 @@
 package frc.robot.commands;
 
+import java.io.Console;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -26,14 +29,14 @@ public class RotateToAprilTag extends Command {
   public void execute() {
     double RotationSpeed;
 
-    if (LimelightHelpers.getTX("limelight") > 0.5){
+    /*if (LimelightHelpers.getTX("limelight") > 0.5){*/
 
-    RotationSpeed = RotationPID.calculate(LimelightHelpers.getTX("limelight"), 0);
+      RotationSpeed = RotationPID.calculate(LimelightHelpers.getTX("limelight"), 0);
 
     swerveSubs.drive(0, 0, RotationSpeed, true, 1);
-    }else{
+    /*}else{
       done = true;
-    }
+    }*/
   }
 
   // Called once the command ends or is interrupted.

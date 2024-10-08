@@ -31,8 +31,8 @@ public class ShootAtDistanceAuto extends Command {
       bumpBool = true;
     }*/
     Hand.ShootAtSpeed(0.8);
-    Arm.ArmToDistance(2.2);
-    if(Arm.ArmEncoder.getPosition() > 2.3){
+    Arm.ArmToDistance(3);
+    if(Arm.ArmEncoder.getPosition() > 3){
       done = true;
     }else{
       done = false;

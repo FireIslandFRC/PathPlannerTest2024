@@ -38,7 +38,7 @@ public class SwerveSubsystem extends SubsystemBase {
   private SwerveDriveOdometry odometer; 
 
   //pigeon
-  public Pigeon2 pigeon = new Pigeon2(30); 
+  public Pigeon2 pigeon = new Pigeon2(30);
 
   //field2d
   public Field2d m_field;

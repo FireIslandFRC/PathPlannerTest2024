@@ -23,7 +23,7 @@ public class LowerArm extends Command {
   @Override
   public void execute() {
     Arm.LowerArm();
-    if(Arm.ArmEncoder.getPosition() < 2){
+    if(Arm.ArmEncoder.getPosition() < 5){
       done = true;
     }else{
       done = false;
@@ -34,7 +34,6 @@ public class LowerArm extends Command {
   @Override
   public void end(boolean interrupted) {
     Arm.StopArm();
-    Arm.LockArm();
   }
 
   // Returns true when the command should end.

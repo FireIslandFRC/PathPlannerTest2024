@@ -10,7 +10,7 @@ public class S_DriveCommand extends Command {
   private SwerveSubsystem swerveSubs; 
 
   private DoubleSupplier xSupplier, ySupplier, zSupplier; 
-  private boolean fieldOriented;
+  private BooleanSupplier fieldOriented;
   private double SpeedMultiplier;
   private BooleanSupplier speedIncrease;
   /* * * CONSTRUCTOR * * */
@@ -21,7 +21,7 @@ public class S_DriveCommand extends Command {
    * @param zSupplier value input for rotation 
    * @param fieldOriented whether or not we want the bot to run in field oriented 
    */
-  public S_DriveCommand(SwerveSubsystem swerveSubs, DoubleSupplier xSupplier, DoubleSupplier ySupplier, DoubleSupplier zSupplier, boolean fieldOriented, BooleanSupplier speedIncrease) {
+  public S_DriveCommand(SwerveSubsystem swerveSubs, DoubleSupplier xSupplier, DoubleSupplier ySupplier, DoubleSupplier zSupplier, BooleanSupplier fieldOriented, BooleanSupplier speedIncrease) {
     this.swerveSubs = swerveSubs; 
     this.xSupplier = xSupplier; 
     this.ySupplier = ySupplier; 
@@ -44,6 +44,7 @@ public class S_DriveCommand extends Command {
     double xSpeed = xSupplier.getAsDouble(); 
     double ySpeed = ySupplier.getAsDouble(); 
     double zSpeed = zSupplier.getAsDouble(); 
+    boolean FieldOriented = fieldOriented.getAsBoolean();
 
     SmartDashboard.putNumber("z speed", zSpeed);
 
@@ -62,7 +63,7 @@ public class S_DriveCommand extends Command {
     }
 
     /* * * SETTING SWERVE STATES * * */
-    swerveSubs.drive(xSpeed, ySpeed, zSpeed, fieldOriented, SpeedMultiplier);
+    swerveSubs.drive(xSpeed*0.8, ySpeed*0.8, zSpeed*0.8, !FieldOriented, SpeedMultiplier);
     
   }
 
