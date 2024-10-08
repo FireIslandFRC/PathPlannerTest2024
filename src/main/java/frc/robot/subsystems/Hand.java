@@ -18,7 +18,7 @@ public class Hand extends SubsystemBase {
   private static CANSparkMax BottonShooter = new CANSparkMax(HandConstants.TopShooterID, MotorType.kBrushed);
   private static CANSparkMax Intake = new CANSparkMax(HandConstants.IntakeID, MotorType.kBrushless);
   public static DigitalInput HandLimitSwitch = new DigitalInput(0);
-  //public static final XboxController xbox = new XboxController(ControllerConstants.kOperatorControllerPort);
+  public static final XboxController xbox = new XboxController(ControllerConstants.kOperatorControllerPort);
 
   public Hand() {
     Intake.setInverted(true);
