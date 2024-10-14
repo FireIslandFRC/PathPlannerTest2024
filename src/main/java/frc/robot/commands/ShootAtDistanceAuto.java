@@ -30,9 +30,9 @@ public class ShootAtDistanceAuto extends Command {
       Hand.StopIntake();
       bumpBool = true;
     }*/
-    Hand.ShootAtSpeed(0.8);
-    Arm.ArmToDistance(2.2);
-    if(Arm.ArmEncoder.getPosition() > 2.3){
+    Hand.ShootAtSpeed(1);
+    Arm.ArmToDistance(2);
+    if(Arm.ArmEncoder.getPosition() > 3){
       done = true;
     }else{
       done = false;

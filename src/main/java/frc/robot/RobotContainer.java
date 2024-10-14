@@ -100,7 +100,6 @@ public class RobotContainer extends SubsystemBase{
 
     NamedCommands.registerCommand("LowerArmFlywheel", new LowerArmFlywheel());
     NamedCommands.registerCommand("LowerArm", new LowerArm());
-    //NamedCommands.registerCommand("StartShoot", new ShootNoOff());
     NamedCommands.registerCommand("ShootAtDistanceAuto", new ShootAtDistanceAuto());
     NamedCommands.registerCommand("ShootAtN1", new ShootAtN1());
     NamedCommands.registerCommand("StopShooter", new StopShoot());

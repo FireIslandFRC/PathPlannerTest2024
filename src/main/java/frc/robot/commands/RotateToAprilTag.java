@@ -29,10 +29,14 @@ public class RotateToAprilTag extends Command {
   public void execute() {
     double RotationSpeed;
 
-    RotationSpeed = RotationPID.calculate(LimelightHelpers.getTX("limelight"), 0);
+    /*if (LimelightHelpers.getTX("limelight") > 0.5){*/
+
+      RotationSpeed = RotationPID.calculate(LimelightHelpers.getTX("limelight"), 0);
 
     swerveSubs.drive(0, 0, RotationSpeed, true, 1);
-
+    /*}else{
+      done = true;
+    }*/
   }
 
   // Called once the command ends or is interrupted.
